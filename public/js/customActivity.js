@@ -29,6 +29,14 @@ define([
         connection.trigger('requestTriggerEventDefinition');
         connection.trigger('requestDataSources');  
 
+        $('#url').change(function() {
+            var url = getURL();
+        });
+
+        $('#payload').change(function() {
+            var contentJSON = getcontentJSON();
+        });
+
     }
 
     function onRequestedDataSources(dataSources){
@@ -52,6 +60,8 @@ define([
             payload = data;
         }
         
+        var url;
+        var contentJSON;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -65,10 +75,21 @@ define([
 
         $.each(inArguments, function (index, inArgument) {
             $.each(inArgument, function (key, val) {
-                
+                console.log("inArg key: " + key);
+                console.log("inArg val: " + val);
+                if (key === 'url') {
+                    url = val;
+                }
+
+                if (key === 'contentJSON') {
+                    contentJSON = val;
+                }
               
             });
         });
+
+        $('#url').val(url);
+        $('#payload').val(contentJSON);
 
         connection.trigger('updateButton', {
             button: 'next',
@@ -90,14 +111,37 @@ define([
         var postcardURLValue = $('#postcard-url').val();
         var postcardTextValue = $('#postcard-text').val();
 
-        payload['arguments'].execute.inArguments = [{
-            "tokens": authTokens
-        }];
+        var name = 'Webhook Settings';
+        var url = getURL();
+        var contentJSON = getcontentJSON();
+
+        payload['arguments'].execute.inArguments = [
+            {
+                "tokens": authTokens 
+            },
+            { 
+                "url": url 
+            }, 
+            { 
+                "contentJSON": contentJSON
+            }
+
+        ];
         
         payload['metaData'].isConfigured = true;
 
         console.log(payload);
         connection.trigger('updateActivity', payload);
+    }
+
+    function getURL() {
+        console.log('getURL: ' + $('#url').val());
+        return $('#url').val().trim();
+    }
+
+    function getcontentJSON() {
+        console.log('getcontentJSON: ' + $('#payload').val());
+        return $('#payload').val().trim();
     }
 
 
