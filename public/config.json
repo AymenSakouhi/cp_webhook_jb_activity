@@ -8,9 +8,9 @@
     "type": "REST",
     "lang": {
         "en-US": {
-            "name": "Template",
-          "description": "A Template for a custom Journey Builder activity",
-          "step1Label": "Configure Activity"
+            "name": "Webhook Activity",
+          "description": "CP Webhook",
+          "step1Label": "Configure Webhook"
         }
     },
     "arguments": {

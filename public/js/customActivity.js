@@ -115,6 +115,8 @@ define([
         var url = getURL();
         var contentJSON = getcontentJSON();
 
+        payload.name = name;
+
         payload['arguments'].execute.inArguments = [
             {
                 "tokens": authTokens 
@@ -130,7 +132,7 @@ define([
         
         payload['metaData'].isConfigured = true;
 
-        console.log(payload);
+        console.log(JSON.stringify(payload));
         connection.trigger('updateActivity', payload);
     }
 
