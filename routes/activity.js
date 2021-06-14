@@ -76,13 +76,36 @@ exports.save = function (req, res) {
       });
     });
 
-    var http = require('http');
+    const https = require('https')
 
-        http.post({'host': 'hooks.zapier.com', 'port': 443, 'path': 'hooks/catch/9270658/boao9sj/'}, function(resp) {
-          resp.on('data', function(id) {
-            console.log("Zapier ID: " + id);
-          });
-        });
+    const data = JSON.stringify({
+      todo: 'Buy the milk'
+    })
+
+    const options = {
+      hostname: 'hooks.zapier.com',
+      port: 443,
+      path: '/hooks/catch/9270658/boao9sj/',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const req = https.request(options, res => {
+      console.log(`Zapier Status: ${res.statusCode}`)
+
+      res.on('data', d => {
+        process.stdout.write(d)
+      })
+    })
+
+    req.on('error', error => {
+      console.error(error)
+    })
+
+    req.write(data)
+    req.end()
 
     logData(req);
     res.send(200, 'Save');
