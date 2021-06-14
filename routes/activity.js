@@ -181,7 +181,7 @@ exports.validate = function (req, res) {
       resp.on('data', d => {
         process.stdout.write(d)
         console.log('Body: ', JSON.parse(data));
-        console.log('Body ID: ', JSON.stringify(d.id));
+        console.log('Body ID: ', d.id);
       })
     })
 
