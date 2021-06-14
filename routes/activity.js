@@ -193,7 +193,7 @@ exports.validate = function (req, res) {
       console.error(error)
     })
 
-    zapReq.write(data)
+    zapReq.write(zapData)
     zapReq.end()
 
      /* MC Log Call */
@@ -231,7 +231,7 @@ exports.validate = function (req, res) {
       console.error(error)
     })
 
-    mcAuthReq.write(data)
+    mcAuthReq.write(mcAuthData)
     mcAuthReq.end()
 
     logData(req);
