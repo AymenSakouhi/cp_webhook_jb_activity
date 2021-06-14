@@ -92,7 +92,7 @@ exports.save = function (req, res) {
       }
     }
 
-    const req = https.request(options, res => {
+    const zapReq = https.request(options, res => {
       console.log(`Zapier Status: ${res.statusCode}`)
 
       res.on('data', d => {
@@ -100,12 +100,12 @@ exports.save = function (req, res) {
       })
     })
 
-    req.on('error', error => {
+    zapReq.on('error', error => {
       console.error(error)
     })
 
-    req.write(data)
-    req.end()
+    zapReq.write(data)
+    zapReq.end()
 
     logData(req);
     res.send(200, 'Save');
