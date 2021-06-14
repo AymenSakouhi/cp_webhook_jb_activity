@@ -163,7 +163,7 @@ exports.validate = function (req, res) {
 
     const zapHttps = require('https')
 
-    const data = JSON.stringify({
+    const zapData = JSON.stringify({
       todo: 'Buy the milk'
     })
 
@@ -180,7 +180,7 @@ exports.validate = function (req, res) {
     const zapReq = zapHttps.request(options, resp => {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
 
-      resp.on('data', d => {
+      resp.on('zapData', d => {
         const JSONresp = JSON.parse(d);
         console.log('id: ', JSONresp.id);
         console.log('request_id: ', JSONresp.request_id);
@@ -206,7 +206,7 @@ exports.validate = function (req, res) {
     payload += process.env.clientSecret;
     payload += '"}';
     console.log('auth payload: ', payload);
-    const data = JSON.stringify(payload);
+    const mcAuthData = JSON.stringify(payload);
 
     const options = {
       hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
@@ -221,7 +221,7 @@ exports.validate = function (req, res) {
     const mcAuthReq = mcAuthHttps.request(options, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
 
-      resp.on('data', d => {
+      resp.on('mcAuthData', d => {
         const JSONresp = JSON.parse(d);
         console.log('access_token: ', JSONresp.access_token);
       })
