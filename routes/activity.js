@@ -67,6 +67,13 @@ exports.save = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
     console.log( 'TEST SAVE' );
+    var http = require('http');
+
+        http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+          resp.on('data', function(ip) {
+            console.log("My public IP address is: " + ip);
+          });
+        });
     logData(req);
     res.send(200, 'Save');
 };
@@ -78,6 +85,7 @@ exports.execute = function (req, res) {
 
     // example on how to decode JWT
     JWT(req.body, process.env.jwtSecret, (err, decoded) => {
+
 
         // verification error -> unauthorized request
         if (err) {
@@ -117,6 +125,13 @@ exports.validate = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
     console.log( 'TEST VALIDATE' );
+    var http = require('http');
+
+        http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+          resp.on('data', function(ip) {
+            console.log("My public IP address is: " + ip);
+          });
+        });
     logData(req);
     res.send(200, 'Validate');
 };
