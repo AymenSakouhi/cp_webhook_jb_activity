@@ -48,22 +48,11 @@
         "useJwt": true
       }
     },
-    "wizardSteps": [
-        { "label": "Configure Activity", "key": "step1" }
-    ],
     "userInterfaces": {
         "configModal": {
             "height": 400,
             "width": 1000,
           "fullscreen": false
-        }
-    },
-    "schema": {
-        "arguments": {
-            "execute": {
-                "inArguments": [],
-                "outArguments": []
-            }
         }
     }
 }
