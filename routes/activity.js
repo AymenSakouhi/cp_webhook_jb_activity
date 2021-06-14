@@ -92,10 +92,10 @@ exports.save = function (req, res) {
       }
     }
 
-    const zapReq = https.request(options, res => {
-      console.log(`Zapier Status: ${res.statusCode}`)
+    const zapReq = https.request(options, resp => {
+      console.log(`Zapier Status: ${resp.statusCode}`)
 
-      res.on('data', d => {
+      resp.on('data', d => {
         process.stdout.write(d)
       })
     })
@@ -158,11 +158,43 @@ exports.validate = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
     console.log( 'TEST VALIDATE' );
+
+    const https = require('https')
+
+    const data = JSON.stringify({
+      todo: 'Buy the milk'
+    })
+
+    const options = {
+      hostname: 'hooks.zapier.com',
+      port: 443,
+      path: '/hooks/catch/9270658/boao9sj/',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const zapReq = https.request(options, resp => {
+      console.log(`Zapier Status: ${resp.statusCode}`)
+
+      resp.on('data', d => {
+        process.stdout.write(d)
+      })
+    })
+
+    zapReq.on('error', error => {
+      console.error(error)
+    })
+
+    zapReq.write(data)
+    zapReq.end()
+
     var http = require('http');
 
         http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
           resp.on('data', function(ip) {
-            console.log("My public IP address is: " + ip);
+            console.log("VALIDATE My public IP address is: " + ip);
           });
         });
     logData(req);
