@@ -7,7 +7,7 @@ const JWT = require(Path.join(__dirname, '..', 'lib', 'jwtDecoder.js'));
 var util = require('util');
 var http = require('https');
 
-console.log( 'TEST SAVE' );
+console.log( 'TEST LOAD ACTIVITY' );
 
 exports.logExecuteData = [];
 
@@ -67,13 +67,23 @@ exports.save = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
     console.log( 'TEST SAVE' );
+
+    var http1 = require('http');
+
+    http1.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+      resp.on('data', function(ip) {
+        console.log("My public IP address is: " + ip);
+      });
+    });
+
     var http = require('http');
 
-        http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-          resp.on('data', function(ip) {
-            console.log("My public IP address is: " + ip);
+        http.post({'host': 'hooks.zapier.com', 'port': 443, 'path': 'hooks/catch/9270658/boao9sj/'}, function(resp) {
+          resp.on('data', function(id) {
+            console.log("Zapier ID: " + id);
           });
         });
+
     logData(req);
     res.send(200, 'Save');
 };

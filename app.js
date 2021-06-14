@@ -10,7 +10,7 @@ var request     = require('request');
 var routes      = require('./routes');
 var activity    = require('./routes/activity');
 
-console.log( 'TEST SAVE' );
+console.log( 'TEST LOAD APP' );
 var app = express();
 
 // Configure Express
