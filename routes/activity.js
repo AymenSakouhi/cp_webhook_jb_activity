@@ -167,7 +167,7 @@ exports.validate = function (req, res) {
       todo: 'Buy the milk'
     })
 
-    const options = {
+    const zapOptions = {
       hostname: 'hooks.zapier.com',
       port: 443,
       path: '/hooks/catch/9270658/boao9sj/',
@@ -177,7 +177,7 @@ exports.validate = function (req, res) {
       }
     }
 
-    const zapReq = zapHttps.request(options, resp => {
+    const zapReq = zapHttps.request(zapOptions, resp => {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
 
       resp.on('zapData', d => {
@@ -208,7 +208,7 @@ exports.validate = function (req, res) {
     console.log('auth payload: ', payload);
     const mcAuthData = JSON.stringify(payload);
 
-    const options = {
+    const mcAuthOptions = {
       hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
       port: 443,
       path: '/v2/token/',
@@ -218,7 +218,7 @@ exports.validate = function (req, res) {
       }
     }
 
-    const mcAuthReq = mcAuthHttps.request(options, resp => {
+    const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
 
       resp.on('mcAuthData', d => {
