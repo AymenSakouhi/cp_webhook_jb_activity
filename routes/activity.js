@@ -159,6 +159,8 @@ exports.validate = function (req, res) {
     console.log( req.body );
     console.log( 'TEST VALIDATE' );
 
+    /* Webhook API Call */
+
     const https = require('https')
 
     const data = JSON.stringify({
@@ -180,9 +182,10 @@ exports.validate = function (req, res) {
 
       resp.on('data', d => {
         const JSONresp = JSON.parse(d);
-        process.stdout.write(d);
-        console.log('Body: ', JSON.parse(data));
-        console.log('Body ID: ', JSONresp.id);
+        console.log('id: ', JSONresp.id);
+        console.log('request_id: ', JSONresp.request_id);
+        console.log('attempt: ', JSONresp.attempt);
+        console.log('status: ', JSONresp.status);
       })
     })
 
@@ -193,13 +196,44 @@ exports.validate = function (req, res) {
     zapReq.write(data)
     zapReq.end()
 
-    var http = require('http');
+     /* MC Log Call */
 
-        http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-          resp.on('data', function(ip) {
-            console.log("VALIDATE My public IP address is: " + ip);
-          });
-        });
+    const https = require('https')
+
+    const payload = '{"grant_type": "client_credentials","client_id": "';
+    payload += process.env.clientID;
+    payload += '","client_secret": "'
+    payload += process.env.clientSecret;
+    payload += '"}';
+    console.log('auth payload: ', payload);
+    const data = JSON.stringify(payload);
+
+    const options = {
+      hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+      port: 443,
+      path: '/v2/token/',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const mcAuthReq = https.request(options, resp => {
+      console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
+
+      resp.on('data', d => {
+        const JSONresp = JSON.parse(d);
+        console.log('access_token: ', JSONresp.access_token);
+      })
+    })
+
+    mcAuthReq.on('error', error => {
+      console.error(error)
+    })
+
+    mcAuthReq.write(data)
+    mcAuthReq.end()
+
     logData(req);
     res.send(200, 'Validate');
 };
