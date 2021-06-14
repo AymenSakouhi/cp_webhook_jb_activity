@@ -161,7 +161,7 @@ exports.validate = function (req, res) {
 
     /* Webhook API Call */
 
-    const https = require('https')
+    const zapHttps = require('https')
 
     const data = JSON.stringify({
       todo: 'Buy the milk'
@@ -177,7 +177,7 @@ exports.validate = function (req, res) {
       }
     }
 
-    const zapReq = https.request(options, resp => {
+    const zapReq = zapHttps.request(options, resp => {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
 
       resp.on('data', d => {
@@ -198,7 +198,7 @@ exports.validate = function (req, res) {
 
      /* MC Log Call */
 
-    const https = require('https')
+    const mcAuthHttps = require('https')
 
     const payload = '{"grant_type": "client_credentials","client_id": "';
     payload += process.env.clientID;
@@ -218,7 +218,7 @@ exports.validate = function (req, res) {
       }
     }
 
-    const mcAuthReq = https.request(options, resp => {
+    const mcAuthReq = mcAuthHttps.request(options, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
 
       resp.on('data', d => {
