@@ -202,7 +202,7 @@ exports.validate = function (req, res) {
 
     const payload = '{"grant_type": "client_credentials","client_id": "';
     payload += process.env.clientID;
-    payload += '","client_secret": "'
+    payload += '","client_secret": "';
     payload += process.env.clientSecret;
     payload += '"}';
     console.log('auth payload: ', payload);
