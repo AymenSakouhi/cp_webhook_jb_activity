@@ -179,7 +179,7 @@ exports.validate = function (req, res) {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
 
       resp.on('data', d => {
-        const JSONresp = JSON.parse(data);
+        const JSONresp = JSON.parse(d);
         process.stdout.write(d);
         console.log('Body: ', JSON.parse(data));
         console.log('Body ID: ', JSONresp.id);
