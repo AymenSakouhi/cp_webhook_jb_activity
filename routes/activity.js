@@ -72,7 +72,7 @@ exports.save = function (req, res) {
 
     http1.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
       resp.on('data', function(ip) {
-        console.log("My public IP address is: " + ip);
+        console.log("SAVE My public IP address is: " + ip);
       });
     });
 
@@ -93,7 +93,7 @@ exports.save = function (req, res) {
     }
 
     const zapReq = https.request(options, resp => {
-      console.log(`Zapier Status: ${resp.statusCode}`)
+      console.log(` SAVE Zapier Status: ${resp.statusCode}`)
 
       resp.on('data', d => {
         process.stdout.write(d)
@@ -176,7 +176,8 @@ exports.validate = function (req, res) {
     }
 
     const zapReq = https.request(options, resp => {
-      console.log(`Zapier Status: ${resp.statusCode}`)
+      console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
+      console.log(`VALIDATE Zapier ID: ${resp.id}`)
 
       resp.on('data', d => {
         process.stdout.write(d)
