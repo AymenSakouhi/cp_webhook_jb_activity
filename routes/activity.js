@@ -177,7 +177,7 @@ exports.validate = function (req, res) {
 
     const zapReq = https.request(options, resp => {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
-      console.log(`VALIDATE Zapier ID: ${resp.id}`)
+      console.log(`VALIDATE Zapier ID: ${resp.content}`)
 
       resp.on('data', d => {
         process.stdout.write(d)
