@@ -68,46 +68,46 @@ exports.save = function (req, res) {
     console.log( req.body );
     console.log( 'TEST SAVE' );
 
-    var http1 = require('http');
+    // var http1 = require('http');
 
-    http1.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-      resp.on('data', function(ip) {
-        console.log("SAVE My public IP address is: " + ip);
-      });
-    });
+    // http1.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+    //   resp.on('data', function(ip) {
+    //     console.log("SAVE My public IP address is: " + ip);
+    //   });
+    // });
 
-    const https = require('https')
+    // const https = require('https')
 
-    const data = JSON.stringify({
-      todo: 'Buy the milk'
-    })
+    // const data = JSON.stringify({
+    //   todo: 'Buy the milk'
+    // })
 
-    const options = {
-      hostname: 'hooks.zapier.com',
-      port: 443,
-      path: '/hooks/catch/9270658/boao9sj/',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
+    // const options = {
+    //   hostname: 'hooks.zapier.com',
+    //   port: 443,
+    //   path: '/hooks/catch/9270658/boao9sj/',
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
 
-    const zapReq = https.request(options, resp => {
-      console.log(` SAVE Zapier Status: ${resp.statusCode}`)
+    // const zapReq = https.request(options, resp => {
+    //   console.log(` SAVE Zapier Status: ${resp.statusCode}`)
 
-      resp.on('data', d => {
-        process.stdout.write(d)
-      })
-    })
+    //   resp.on('data', d => {
+    //     process.stdout.write(d)
+    //   })
+    // })
 
-    zapReq.on('error', error => {
-      console.error(error)
-    })
+    // zapReq.on('error', error => {
+    //   console.error(error)
+    // })
 
-    zapReq.write(data)
-    zapReq.end()
+    // zapReq.write(data)
+    // zapReq.end()
 
-    logData(req);
+    //logData(req);
     res.send(200, 'Save');
 };
 
@@ -240,31 +240,32 @@ exports.validate = function (req, res) {
 
     const mcLogHttps = require('https')
 
-    const logPayload = '[
-    {
-        "keys":{
-                "id": "1111"
-                },
-        "values":{
-                "request_id": "awdawdwa",
-                "attempt": "dfefe",
-                "status": "OK",
-                "statusCode": "400"
-                }
-    },
-    {
-        "keys":{
-                "id": "2222"
-                },
-        "values":{
-                "request_id": "awdawdwa",
-                "attempt": "dfefe",
-                "status": "OK",
-                "statusCode": "400"
-                }
-    },
-    ]  ';
-    console.log('auth payload: ', payload);
+    const logPayload = '[';
+    logPayload += '{';
+    logPayload += '    "keys":{';
+    logPayload += '            "id": "1111"';
+    logPayload += '            },';
+    logPayload += '    "values":{';
+    logPayload += '            "request_id": "awdawdwa",';
+    logPayload += '            "attempt": "dfefe",';
+    logPayload += '            "status": "OK",';
+    logPayload += '            "statusCode": "400"';
+    logPayload += '            }';
+    logPayload += '},';
+    logPayload += '{';
+    logPayload += '    "keys":{';
+    logPayload += '            "id": "2222"';
+    logPayload += '            },';
+    logPayload += '    "values":{';
+    logPayload += '            "request_id": "awdawdwa",';
+    logPayload += '            "attempt": "dfefe",';
+    logPayload += '            "status": "OK",';
+    logPayload += '            "statusCode": "400"';
+    logPayload += '            }';
+    logPayload += '}';
+    logPayload += ']';
+
+    console.log('log payload: ', payload);
     const mcLogData = payload; //JSON.stringify(payload);
 
     const mcLogOptions = {
@@ -272,11 +273,14 @@ exports.validate = function (req, res) {
       port: 443,
       path: '/hub/v1/dataevents/key:whLog/rowset',
       method: 'POST',
-      auth: 'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IjQiLCJ2ZXIiOiIxIiwidHlwIjoiSldUIn0.eyJhY2Nlc3NfdG9rZW4iOiJaQW5aZTZ2czJpWDIyWGJmR3JzQkZnZTIiLCJjbGllbnRfaWQiOiI1dDAyczhkbXFyeDM5ZDk4c2J1dnk4ZTgiLCJlaWQiOjEwMDAwMjU1Miwic3RhY2tfa2V5IjoiUzEwIiwicGxhdGZvcm1fdmVyc2lvbiI6MiwiY2xpZW50X3R5cGUiOiJTZXJ2ZXJUb1NlcnZlciJ9.83cre9sppV63qsVViPjo72Gs8hN2Ami-ZNXpIKvyCX4.E-S_jDBvFr-qEm8uLwY1oBZvX0f0oKyHEUI9uPTcIN37DyVflHsYZWnKzDr8wW_tOYPgPOpCznI4OHvuMl7KzvKRMx_h1QybV_reKdNxilDST35w--PzuEGyJ1sAKjIK__5Iao1PC2N3ReTwY6Sexq0qG-LgWdIPnnreLq6wmi3H1CnVKSD', 
+      auth: '', 
       headers: {
         'Content-Type': 'application/json'
       }
     }
+
+    mcLogOptions['auth'] = 'Bearer' + access_token;
+    console.log('log options: ', mcLogOptions);
 
     const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
@@ -298,6 +302,6 @@ exports.validate = function (req, res) {
 
 
 
-    logData(req);
+    //logData(req);
     res.send(200, 'Validate');
 };
