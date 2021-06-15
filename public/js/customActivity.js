@@ -133,7 +133,7 @@ define([
           firstName = 'OpportunityArchive__c:Account__r:FirstName'
           break;
         default:
-          code to be executed if n is different from case 1 and 2
+          //code to be executed if n is different from case 1 and 2
         }
         payload.name = name;
 
