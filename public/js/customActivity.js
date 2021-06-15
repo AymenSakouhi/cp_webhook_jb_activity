@@ -8,6 +8,9 @@ define([
     var connection = new Postmonger.Session();
     var authTokens = {};
     var payload = {};
+
+    console.log( 'Call customActivity.js' );
+
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
@@ -128,7 +131,7 @@ define([
                 "contentJSON": contentJSON
             },
             {
-                "emailAddress": {{InteractionDefaults.Email}}
+                "emailAddress": "{{InteractionDefaults.Email}}"
             }
 
         ];
