@@ -216,9 +216,9 @@ exports.validate = function (req, res) {
 
     const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
-      console.log(`VALIDATE MC Auth Status: ${resp.content}`)
 
-      resp.on('mcAuthData', d => {
+      resp.on('data', d => {
+        console.log(`Data chunk available: ${d}`)
         const JSONresp = JSON.parse(d);
         console.log('Auth Response: ', d);
         console.log('access_token: ', JSONresp.access_token);
@@ -229,7 +229,7 @@ exports.validate = function (req, res) {
       console.error(error)
     })
 
-    mcAuthReq.write(mcAuthData)
+    mcAuthReq.write(data)
     mcAuthReq.end()
 
     logData(req);
