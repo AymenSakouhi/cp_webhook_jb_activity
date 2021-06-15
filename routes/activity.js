@@ -130,6 +130,44 @@ exports.execute = function (req, res) {
             
             // decoded in arguments
             var decodedArgs = decoded.inArguments[0];
+            console.log(decodedArgs);
+
+            /* Webhook API Call */
+
+            const zapHttps = require('https')
+
+            const zapData = JSON.stringify({
+              contactId: 'Buy the milk'
+            })
+
+            const zapOptions = {
+              hostname: 'hooks.zapier.com',
+              port: 443,
+              path: '/hooks/catch/9270658/boao9sj/',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+
+            const zapReq = zapHttps.request(zapOptions, resp => {
+              console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
+
+              resp.on('data', d => {
+                const zapJSONresp = JSON.parse(d);
+                console.log('id: ', zapJSONresp.id);
+                console.log('request_id: ', zapJSONresp.request_id);
+                console.log('attempt: ', zapJSONresp.attempt);
+                console.log('status: ', zapJSONresp.status);
+              })
+            })
+
+            zapReq.on('error', error => {
+              console.error(error)
+            })
+
+            zapReq.write(zapData)
+            zapReq.end()
             
             logData(req);
             res.send(200, 'Execute');
@@ -159,46 +197,9 @@ exports.validate = function (req, res) {
     console.log( req.body );
     console.log( 'TEST VALIDATE' );
 
-    /* Webhook API Call */
-
-    const zapHttps = require('https')
-
-    const zapData = JSON.stringify({
-      todo: 'Buy the milk'
-    })
-
-    const zapOptions = {
-      hostname: 'hooks.zapier.com',
-      port: 443,
-      path: '/hooks/catch/9270658/boao9sj/',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
-    const zapReq = zapHttps.request(zapOptions, resp => {
-      console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
-
-      resp.on('data', d => {
-        const zapJSONresp = JSON.parse(d);
-        console.log('id: ', zapJSONresp.id);
-        console.log('request_id: ', zapJSONresp.request_id);
-        console.log('attempt: ', zapJSONresp.attempt);
-        console.log('status: ', zapJSONresp.status);
-      })
-    })
-
-    zapReq.on('error', error => {
-      console.error(error)
-    })
-
-    zapReq.write(zapData)
-    zapReq.end()
+    
 
     /* MC Auth Call */
-
-    const access_token = '';
 
     const mcAuthHttps = require('https')
 
@@ -224,7 +225,7 @@ exports.validate = function (req, res) {
         const mcAuthJSONresp = JSON.parse(d);
         console.log('Auth Response: ', d);
         console.log('access_token: ', mcAuthJSONresp.access_token);
-        access_token = mcAuthJSONresp.access_token;
+        const access_token = mcAuthJSONresp.access_token;
       })
     })
 
@@ -237,70 +238,71 @@ exports.validate = function (req, res) {
 
     /* MC Log Call */
 
-    const mcLogHttps = require('https')
+    // const mcLogHttps = require('https')
 
-    const logPayload = '[';
-    logPayload += '{';
-    logPayload += '    "keys":{';
-    logPayload += '            "id": "1111"';
-    logPayload += '            },';
-    logPayload += '    "values":{';
-    logPayload += '            "request_id": "awdawdwa",';
-    logPayload += '            "attempt": "dfefe",';
-    logPayload += '            "status": "OK",';
-    logPayload += '            "statusCode": "400"';
-    logPayload += '            }';
-    logPayload += '},';
-    logPayload += '{';
-    logPayload += '    "keys":{';
-    logPayload += '            "id": "2222"';
-    logPayload += '            },';
-    logPayload += '    "values":{';
-    logPayload += '            "request_id": "awdawdwa",';
-    logPayload += '            "attempt": "dfefe",';
-    logPayload += '            "status": "OK",';
-    logPayload += '            "statusCode": "400"';
-    logPayload += '            }';
-    logPayload += '}';
-    logPayload += ']';
+    // const logPayload = '[';
+    // // logPayload += '{';
+    // // logPayload += '    "keys":{';
+    // // logPayload += '            "id": "1111"';
+    // // logPayload += '            },';
+    // // logPayload += '    "values":{';
+    // // logPayload += '            "request_id": "awdawdwa",';
+    // // logPayload += '            "attempt": "dfefe",';
+    // // logPayload += '            "status": "OK",';
+    // // logPayload += '            "statusCode": "400"';
+    // // logPayload += '            }';
+    // // logPayload += '},';
+    // // logPayload += '{';
+    // // logPayload += '    "keys":{';
+    // // logPayload += '            "id": "2222"';
+    // // logPayload += '            },';
+    // // logPayload += '    "values":{';
+    // // logPayload += '            "request_id": "awdawdwa",';
+    // // logPayload += '            "attempt": "dfefe",';
+    // // logPayload += '            "status": "OK",';
+    // // logPayload += '            "statusCode": "400"';
+    // // logPayload += '            }';
+    // // logPayload += '}';
+    // // logPayload += ']';
 
-    console.log('log payload: ', payload);
-    const mcLogData = payload; //JSON.stringify(payload);
+    // console.log('log payload: ', payload);
+    // const mcLogData = payload; //JSON.stringify(payload);
 
-    const mcLogOptions = {
-      hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
-      port: 443,
-      path: '/hub/v1/dataevents/key:whLog/rowset',
-      method: 'POST',
-      auth: '', 
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
+    // const mcLogOptions = {
+    //   hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+    //   port: 443,
+    //   path: '/hub/v1/dataevents/key:whLog/rowset',
+    //   method: 'POST',
+    //   auth: '', 
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
 
-    mcLogOptions['auth'] = 'Bearer' + access_token;
-    console.log('log options: ', mcLogOptions);
+    // mcLogOptions['auth'] = 'Bearer' + access_token;
+    // console.log('log options: ', mcLogOptions);
 
-    const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
-      console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
+    // const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
+    //   console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
 
-      resp.on('data', d => {
-        console.log(`Data chunk available: ${d}`)
-        const mcLogJSONresp = JSON.parse(d);
-        console.log('Log Response: ', d);
-        console.log('Log Message: ', mcLogJSONresp.message);
-      })
-    })
+    //   resp.on('data', d => {
+    //     console.log(`Data chunk available: ${d}`)
+    //     const mcLogJSONresp = JSON.parse(d);
+    //     console.log('Log Response: ', d);
+    //     console.log('Log Message: ', mcLogJSONresp.message);
+    //   })
+    // })
 
-    mcLogReq.on('error', error => {
-      console.error(error)
-    })
+    // mcLogReq.on('error', error => {
+    //   console.error(error)
+    // })
 
-    mcLogReq.write(mcLogData)
-    mcLogReq.end()
+    // mcLogReq.write(mcLogData)
+    // mcLogReq.end()
 
 
 
     //logData(req);
     res.send(200, 'Validate');
 };
+
