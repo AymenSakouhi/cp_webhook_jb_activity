@@ -9,6 +9,7 @@ define([
     var authTokens = {};
     var payload = {};
     var eventDefinitionKey;
+    var entryObject;
 
     console.log( 'Call customActivity.js' );
 
@@ -51,6 +52,7 @@ define([
     function onRequestedInteraction (interaction) {    
         console.log('*** requestedInteraction ***');
         eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
+        entryObject = interaction.triggers[0].configurationArguments.objectApiName;
         console.log(interaction);
      }
 
@@ -119,7 +121,20 @@ define([
         var name = 'Webhook Settings';
         var url = getURL();
         var contentJSON = getcontentJSON();
+        var preObject;
+        var firstName;
 
+        switch(entryObject)
+        {
+        case 'Opportunity':
+          firstName = 'Opportunity:Account:FirstName';
+          break;
+        case 'OpportunityArchive__c':
+          firstName = 'OpportunityArchive__c:Account__r:FirstName'
+          break;
+        default:
+          code to be executed if n is different from case 1 and 2
+        }
         payload.name = name;
 
         payload['arguments'].execute.inArguments = [
@@ -136,7 +151,11 @@ define([
                 "emailAddress": "{{InteractionDefaults.Email}}"
             },
             {
-                "ID": "{{Event."+ eventDefinitionKey +".ID}}",
+                "EntryObject": entryObject,
+            },
+            ,
+            {
+                "firstName": "{{Event."+ eventDefinitionKey + "." + firstName + "}}",
             }
 
         ];
