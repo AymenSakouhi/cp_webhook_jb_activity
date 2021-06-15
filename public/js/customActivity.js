@@ -155,11 +155,12 @@ define([
             {
                 "EntryObject": entryObject,
             },
-            ,
             {
-                "firstName": "{{Event."+ eventDefinitionKey + "." + firstName + "}}",
+                "firstName1": "{{Event."+ eventDefinitionKey + "." + firstName + "}}",
+            },
+            {
+                "firstName2": "{{Event.SalesforceObj0c4ce5972cc52b42fb8ef003cfe1e437.Opportunity:Account:FirstName}}",
             }
-
         ];
         
         payload['metaData'].isConfigured = true;
