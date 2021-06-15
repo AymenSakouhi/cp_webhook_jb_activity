@@ -198,7 +198,7 @@ exports.validate = function (req, res) {
 
     /* MC Auth Call */
 
-    const acessToken = '';
+    const access_token = '';
 
     const mcAuthHttps = require('https')
 
