@@ -31,23 +31,23 @@ function logData(req) {
         secure: req.secure,
         originalUrl: req.originalUrl
     });
-    console.log("body: " + util.inspect(req.body));
-    console.log("headers: " + req.headers);
-    console.log("trailers: " + req.trailers);
-    console.log("method: " + req.method);
-    console.log("url: " + req.url);
-    console.log("params: " + util.inspect(req.params));
-    console.log("query: " + util.inspect(req.query));
-    console.log("route: " + req.route);
-    console.log("cookies: " + req.cookies);
-    console.log("ip: " + req.ip);
-    console.log("path: " + req.path);
-    console.log("host: " + req.host);
-    console.log("fresh: " + req.fresh);
-    console.log("stale: " + req.stale);
-    console.log("protocol: " + req.protocol);
-    console.log("secure: " + req.secure);
-    console.log("originalUrl: " + req.originalUrl);
+    // console.log("body: " + util.inspect(req.body));
+    // console.log("headers: " + req.headers);
+    // console.log("trailers: " + req.trailers);
+    // console.log("method: " + req.method);
+    // console.log("url: " + req.url);
+    // console.log("params: " + util.inspect(req.params));
+    // console.log("query: " + util.inspect(req.query));
+    // console.log("route: " + req.route);
+    // console.log("cookies: " + req.cookies);
+    // console.log("ip: " + req.ip);
+    // console.log("path: " + req.path);
+    // console.log("host: " + req.host);
+    // console.log("fresh: " + req.fresh);
+    // console.log("stale: " + req.stale);
+    // console.log("protocol: " + req.protocol);
+    // console.log("secure: " + req.secure);
+    // console.log("originalUrl: " + req.originalUrl);
 }
 
 /*
@@ -68,45 +68,6 @@ exports.save = function (req, res) {
     console.log( req.body );
     console.log( 'TEST SAVE' );
 
-    // var http1 = require('http');
-
-    // http1.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-    //   resp.on('data', function(ip) {
-    //     console.log("SAVE My public IP address is: " + ip);
-    //   });
-    // });
-
-    // const https = require('https')
-
-    // const data = JSON.stringify({
-    //   todo: 'Buy the milk'
-    // })
-
-    // const options = {
-    //   hostname: 'hooks.zapier.com',
-    //   port: 443,
-    //   path: '/hooks/catch/9270658/boao9sj/',
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-
-    // const zapReq = https.request(options, resp => {
-    //   console.log(` SAVE Zapier Status: ${resp.statusCode}`)
-
-    //   resp.on('data', d => {
-    //     process.stdout.write(d)
-    //   })
-    // })
-
-    // zapReq.on('error', error => {
-    //   console.error(error)
-    // })
-
-    // zapReq.write(data)
-    // zapReq.end()
-
     //logData(req);
     res.send(200, 'Save');
 };
@@ -116,7 +77,7 @@ exports.save = function (req, res) {
  */
 exports.execute = function (req, res) {
 
-     console.log( 'TEST EXECUTE' );
+     console.log( 'Call activity.js' );
 
     // example on how to decode JWT
     JWT(req.body, process.env.jwtSecret, (err, decoded) => {
