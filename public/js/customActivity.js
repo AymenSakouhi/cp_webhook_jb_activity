@@ -52,7 +52,7 @@ define([
     function onRequestedInteraction (interaction) {    
         console.log('*** requestedInteraction ***');
         eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
-        entryObject = interaction.triggers[0].configurationArguments.objectApiName;
+        entryObject = interaction.triggers[0].configurationArguments.objectAPIName;
         console.log(JSON.stringify(interaction));
         console.log(eventDefinitionKey);
         console.log(entryObject);
