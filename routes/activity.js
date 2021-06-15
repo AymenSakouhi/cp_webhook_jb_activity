@@ -134,50 +134,54 @@ exports.execute = function (req, res) {
             var decodedArgs = decoded.inArguments[0];
             console.log('decoded in arguments: ', decoded.inArguments.length);
 
-            for(var i = 0; i < decoded.inArguments.length;i++){
-                console.log('arg ', i , ':', decoded.inArguments[i]);
-            }
+            // for(var i = 0; i < decoded.inArguments.length;i++){
+            //     console.log('arg ', i , ':', decoded.inArguments[i]);
+            // }
 
-            console.log('URL ', decoded.inArguments);
-            console.log('URL 2: ', decoded.inArguments[1].url);
-            console.log('URL 3: ', decoded.inArguments[1]['url']);
+            console.log('inArguments: ', decoded.inArguments);
+            console.log('URL: ', decoded.inArguments[1].url);
+            console.log('Payload: ', decoded.inArguments[2].contentJSON);
+
+            var webhookURL = decoded.inArguments[1].url;
+            var contentJSON = decoded.inArguments[2].contentJSON;
+
 
             /* Webhook API Call */
 
-            // const zapHttps = require('https')
+            const zapHttps = require('https')
 
-            // const zapData = JSON.stringify({
-            //   contactId: 'Buy the milk'
-            // })
+            var zapData = JSON.stringify(contentJSON)
 
-            // const zapOptions = {
-            //   hostname: 'hooks.zapier.com',
-            //   port: 443,
-            //   path: '/hooks/catch/9270658/boao9sj/',
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json'
-            //   }
-            // }
+            var zapOptions = {
+              hostname: 'hooks.zapier.com',
+              port: 443,
+              path: '',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
 
-            // const zapReq = zapHttps.request(zapOptions, resp => {
-            //   console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
+            zapOptions['path'] = webhookURL;
 
-            //   resp.on('data', d => {
-            //     const zapJSONresp = JSON.parse(d);
-            //     console.log('id: ', zapJSONresp.id);
-            //     console.log('request_id: ', zapJSONresp.request_id);
-            //     console.log('attempt: ', zapJSONresp.attempt);
-            //     console.log('status: ', zapJSONresp.status);
-            //   })
-            // })
+            const zapReq = zapHttps.request(zapOptions, resp => {
+              console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
 
-            // zapReq.on('error', error => {
-            //   console.error(error)
-            // })
+              resp.on('data', d => {
+                const zapJSONresp = JSON.parse(d);
+                console.log('id: ', zapJSONresp.id);
+                console.log('request_id: ', zapJSONresp.request_id);
+                console.log('attempt: ', zapJSONresp.attempt);
+                console.log('status: ', zapJSONresp.status);
+              })
+            })
 
-            // zapReq.write(zapData)
-            // zapReq.end()
+            zapReq.on('error', error => {
+              console.error(error)
+            })
+
+            zapReq.write(zapData)
+            zapReq.end()
             
             logData(req);
             res.send(200, 'Execute');
