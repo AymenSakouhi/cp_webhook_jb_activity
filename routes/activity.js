@@ -138,6 +138,9 @@ exports.execute = function (req, res) {
                 console.log('arg ', i , ':', decoded.inArguments[i]);
             }
 
+            console.log('URL ', decoded.inArguments.url);
+            console.log('URL 2: ', decoded.inArguments['url']);
+
             /* Webhook API Call */
 
             const zapHttps = require('https')
