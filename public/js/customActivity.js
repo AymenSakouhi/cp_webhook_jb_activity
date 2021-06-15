@@ -126,6 +126,9 @@ define([
             }, 
             { 
                 "contentJSON": contentJSON
+            },
+            {
+                "emailAddress": {{InteractionDefaults.Email}}
             }
 
         ];

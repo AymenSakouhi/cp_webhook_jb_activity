@@ -15,14 +15,7 @@
     },
     "arguments": {
         "execute": {
-           "inArguments":[
-               {
-                    "contactIdentifier": "{{Contact.Key}}"
-                },
-                {
-                    "emailAddress": "{{InteractionDefaults.Email}}"
-                }
-           ],
+           "inArguments":[],
            "outArguments": [],
            "url": "https://shjbactivity.herokuapp.com/journeybuilder/execute",
            "verb": "POST",
