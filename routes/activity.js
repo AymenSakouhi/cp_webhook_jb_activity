@@ -180,12 +180,12 @@ exports.validate = function (req, res) {
     const zapReq = zapHttps.request(zapOptions, resp => {
       console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
 
-      resp.on('zapData', d => {
-        const JSONresp = JSON.parse(d);
-        console.log('id: ', JSONresp.id);
-        console.log('request_id: ', JSONresp.request_id);
-        console.log('attempt: ', JSONresp.attempt);
-        console.log('status: ', JSONresp.status);
+      resp.on('data', d => {
+        const zapJSONresp = JSON.parse(d);
+        console.log('id: ', zapJSONresp.id);
+        console.log('request_id: ', zapJSONresp.request_id);
+        console.log('attempt: ', zapJSONresp.attempt);
+        console.log('status: ', zapJSONresp.status);
       })
     })
 
@@ -219,9 +219,9 @@ exports.validate = function (req, res) {
 
       resp.on('data', d => {
         console.log(`Data chunk available: ${d}`)
-        const JSONresp = JSON.parse(d);
+        const mcAuthJSONresp = JSON.parse(d);
         console.log('Auth Response: ', d);
-        console.log('access_token: ', JSONresp.access_token);
+        console.log('access_token: ', mcAuthJSONresp.access_token);
       })
     })
 
@@ -229,7 +229,7 @@ exports.validate = function (req, res) {
       console.error(error)
     })
 
-    mcAuthReq.write(data)
+    mcAuthReq.write(mcAuthData)
     mcAuthReq.end()
 
     logData(req);
