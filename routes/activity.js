@@ -219,6 +219,7 @@ exports.validate = function (req, res) {
 
       resp.on('mcAuthData', d => {
         const JSONresp = JSON.parse(d);
+        console.log('Auth Response: ', d);
         console.log('access_token: ', JSONresp.access_token);
       })
     })
