@@ -50,7 +50,7 @@ define([
 
     function onRequestedInteraction (interaction) {    
         console.log('*** requestedInteraction ***');
-        eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
+        eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
         console.log(interaction);
      }
 
