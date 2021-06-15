@@ -216,6 +216,7 @@ exports.validate = function (req, res) {
 
     const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
       console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
+      console.log(`VALIDATE MC Auth Status: ${resp.content}`)
 
       resp.on('mcAuthData', d => {
         const JSONresp = JSON.parse(d);
