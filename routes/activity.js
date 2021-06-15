@@ -132,7 +132,11 @@ exports.execute = function (req, res) {
             
             // decoded in arguments
             var decodedArgs = decoded.inArguments[0];
-            console.log(decodedArgs);
+            console.log('decoded in arguments: ', decoded.inArguments.length);
+
+            for(var i = 0; i < decoded.inArguments.length;i++){
+                console.log('arg ', i , ':', decoded.inArguments[i]);
+            }
 
             /* Webhook API Call */
 
@@ -153,7 +157,7 @@ exports.execute = function (req, res) {
             }
 
             const zapReq = zapHttps.request(zapOptions, resp => {
-              console.log(`VALIDATE Zapier Status: ${resp.statusCode}`)
+              console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
 
               resp.on('data', d => {
                 const zapJSONresp = JSON.parse(d);
