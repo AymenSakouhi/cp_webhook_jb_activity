@@ -8,6 +8,7 @@ define([
     var connection = new Postmonger.Session();
     var authTokens = {};
     var payload = {};
+    var eventDefinitionKey;
 
     console.log( 'Call customActivity.js' );
 
@@ -49,6 +50,7 @@ define([
 
     function onRequestedInteraction (interaction) {    
         console.log('*** requestedInteraction ***');
+        eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
         console.log(interaction);
      }
 
@@ -132,6 +134,9 @@ define([
             },
             {
                 "emailAddress": "{{InteractionDefaults.Email}}"
+            },
+            {
+                "ID": "{{Event."+ eventDefinitionKey +".ID}}",
             }
 
         ];
