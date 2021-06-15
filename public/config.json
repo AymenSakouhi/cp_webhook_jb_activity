@@ -24,7 +24,7 @@
                 }
            ],
            "outArguments": [],
-          "url": "https://shjbactivity.herokuapp.com/journeybuilder/execute",
+           "url": "https://shjbactivity.herokuapp.com/journeybuilder/execute",
            "verb": "POST",
             "body": "",
             "header": "",
