@@ -196,11 +196,14 @@ exports.validate = function (req, res) {
     zapReq.write(zapData)
     zapReq.end()
 
-     /* MC Log Call */
+    /* MC Auth Call */
+
+    const acessToken = '';
 
     const mcAuthHttps = require('https')
 
-    const payload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+    const payload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": ';
+    payload += '"tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
     console.log('auth payload: ', payload);
     const mcAuthData = payload; //JSON.stringify(payload);
 
@@ -222,6 +225,7 @@ exports.validate = function (req, res) {
         const mcAuthJSONresp = JSON.parse(d);
         console.log('Auth Response: ', d);
         console.log('access_token: ', mcAuthJSONresp.access_token);
+        access_token = mcAuthJSONresp.access_token;
       })
     })
 
@@ -231,6 +235,68 @@ exports.validate = function (req, res) {
 
     mcAuthReq.write(mcAuthData)
     mcAuthReq.end()
+
+    /* MC Log Call */
+
+    const mcLogHttps = require('https')
+
+    const logPayload = '[
+    {
+        "keys":{
+                "id": "1111"
+                },
+        "values":{
+                "request_id": "awdawdwa",
+                "attempt": "dfefe",
+                "status": "OK",
+                "statusCode": "400"
+                }
+    },
+    {
+        "keys":{
+                "id": "2222"
+                },
+        "values":{
+                "request_id": "awdawdwa",
+                "attempt": "dfefe",
+                "status": "OK",
+                "statusCode": "400"
+                }
+    },
+    ]  ';
+    console.log('auth payload: ', payload);
+    const mcLogData = payload; //JSON.stringify(payload);
+
+    const mcLogOptions = {
+      hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+      port: 443,
+      path: '/hub/v1/dataevents/key:whLog/rowset',
+      method: 'POST',
+      auth: 'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IjQiLCJ2ZXIiOiIxIiwidHlwIjoiSldUIn0.eyJhY2Nlc3NfdG9rZW4iOiJaQW5aZTZ2czJpWDIyWGJmR3JzQkZnZTIiLCJjbGllbnRfaWQiOiI1dDAyczhkbXFyeDM5ZDk4c2J1dnk4ZTgiLCJlaWQiOjEwMDAwMjU1Miwic3RhY2tfa2V5IjoiUzEwIiwicGxhdGZvcm1fdmVyc2lvbiI6MiwiY2xpZW50X3R5cGUiOiJTZXJ2ZXJUb1NlcnZlciJ9.83cre9sppV63qsVViPjo72Gs8hN2Ami-ZNXpIKvyCX4.E-S_jDBvFr-qEm8uLwY1oBZvX0f0oKyHEUI9uPTcIN37DyVflHsYZWnKzDr8wW_tOYPgPOpCznI4OHvuMl7KzvKRMx_h1QybV_reKdNxilDST35w--PzuEGyJ1sAKjIK__5Iao1PC2N3ReTwY6Sexq0qG-LgWdIPnnreLq6wmi3H1CnVKSD', 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
+      console.log(`VALIDATE MC Auth Status: ${resp.statusCode}`)
+
+      resp.on('data', d => {
+        console.log(`Data chunk available: ${d}`)
+        const mcLogJSONresp = JSON.parse(d);
+        console.log('Log Response: ', d);
+        console.log('Log Message: ', mcLogJSONresp.message);
+      })
+    })
+
+    mcLogReq.on('error', error => {
+      console.error(error)
+    })
+
+    mcLogReq.write(mcLogData)
+    mcLogReq.end()
+
+
 
     logData(req);
     res.send(200, 'Validate');
