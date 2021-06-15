@@ -139,7 +139,7 @@ exports.execute = function (req, res) {
             }
 
             console.log('URL ', decoded.inArguments);
-            console.log('URL 2: ', ecoded.inArguments[0].url);
+            //console.log('URL 2: ', ecoded.inArguments[0].url);
             console.log('URL 3: ', ecoded.inArguments[0]['url']);
 
             /* Webhook API Call */
