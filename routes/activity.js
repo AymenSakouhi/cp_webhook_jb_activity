@@ -139,8 +139,8 @@ exports.execute = function (req, res) {
             }
 
             console.log('URL ', decoded.inArguments);
-            //console.log('URL 2: ', decoded.inArguments[0].url);
-            console.log('URL 3: ', decoded.inArguments[0]['url']);
+            console.log('URL 2: ', decoded.inArguments[1].url);
+            console.log('URL 3: ', decoded.inArguments[1]['url']);
 
             /* Webhook API Call */
 
