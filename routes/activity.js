@@ -201,9 +201,9 @@ exports.validate = function (req, res) {
     const mcAuthHttps = require('https')
 
     const payload = '{"grant_type": "client_credentials","client_id": "';
-    payload += process.env.clientID;
+    payload += '5t02s8dmqrx39d98sbuvy8e8';
     payload += '","client_secret": "';
-    payload += process.env.clientSecret;
+    payload += 'tDkBpuJkty7JDiQSZyWhCumi'; //process.env.clientSecret;
     payload += '"}';
     console.log('auth payload: ', payload);
     const mcAuthData = JSON.stringify(payload);
