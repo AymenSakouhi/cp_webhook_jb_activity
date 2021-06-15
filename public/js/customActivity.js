@@ -53,7 +53,7 @@ define([
         console.log('*** requestedInteraction ***');
         eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
         entryObject = interaction.triggers[0].configurationArguments.objectApiName;
-        console.log(JSON.stringify(interaction);
+        console.log(JSON.stringify(interaction));
         console.log(eventDefinitionKey);
         console.log(entryObject);
      }
