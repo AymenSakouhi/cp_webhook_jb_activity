@@ -144,7 +144,6 @@ define([
         var budget;
         var rate;
         var studyAdvisor;
-        var phone; 
 
 
 
@@ -195,13 +194,13 @@ define([
                 "emailAddress": "{{InteractionDefaults.Email}}"
             },
             {
-                "EntryObject": entryObject
+                "EntryObject": entryObject,
             },
             {
-                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}"
+                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
             },
             {
-                "phone": "{{Event."+ eventDefinitionKey + ".\"" + phone + "\"}}"
+                "phone": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
             },
         ];
         
