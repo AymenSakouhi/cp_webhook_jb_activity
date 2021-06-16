@@ -144,6 +144,7 @@ define([
         var budget;
         var rate;
         var studyAdvisor;
+        var phone;
 
 
 
