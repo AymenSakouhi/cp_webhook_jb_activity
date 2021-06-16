@@ -180,14 +180,24 @@ define([
         payload.name = name;
 
         payload['arguments'].execute.inArguments = [
-            { "tokens": authTokens },
-            { "EntryObject": entryObject },
-            { "url": url }, 
-            { "contentJSON": contentJSON },
-            { "contactId": "{{Contact.Key}}" },
-            { "email": "{{InteractionDefaults.Email}}" },
-            { "phone": "{{InteractionDefaults.Phone}}" },
-            { "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",}
+            {
+                "tokens": authTokens 
+            },
+            { 
+                "url": url 
+            }, 
+            { 
+                "contentJSON": contentJSON
+            },
+            {
+                "emailAddress": "{{InteractionDefaults.Email}}"
+            },
+            {
+                "EntryObject": entryObject,
+            },
+            {
+                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
+            }
         ];
         
         payload['metaData'].isConfigured = true;
