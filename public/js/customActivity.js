@@ -170,6 +170,7 @@ define([
             budget = 'Opportunity:BudgetPerMonth__c';
             rate = 'Opportunity:RatePerInterval__c';
             studyAdvisor = 'Opportunity:StudyAdvisor__c';
+            phone = 'Opportunity:Account:Phone';
           break;
         case 'OpportunityArchive__c':
           firstName = 'OpportunityArchive__c:Account__r:FirstName'
@@ -193,13 +194,13 @@ define([
                 "emailAddress": "{{InteractionDefaults.Email}}"
             },
             {
-                "EntryObject": entryObject,
+                "EntryObject": entryObject
             },
             {
-                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
+                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}"
             },
             {
-                "phone": "{{InteractionDefaults.Phone}}"
+                "phone": "{{Event."+ eventDefinitionKey + ".\"" + phone + "\"}}"
             },
         ];
         
