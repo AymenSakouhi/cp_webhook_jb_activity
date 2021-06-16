@@ -24,7 +24,7 @@ function logData(req) {
         cookies: req.cookies,
         ip: req.ip,
         path: req.path,
-        host: req.host,
+        host: req.hostname,
         fresh: req.fresh,
         stale: req.stale,
         protocol: req.protocol,
@@ -100,14 +100,15 @@ exports.execute = function (req, res) {
             }
 
             console.log('inArguments: ', decoded.inArguments);
-            console.log('URL: ', decoded.inArguments[1].url);
-            console.log('Payload: ', decoded.inArguments[2].contentJSON);
+            console.log('inURL: ', decoded.inArguments[1].url);
+            console.log('inPayload: ', decoded.inArguments[2].contentJSON);
 
             var webhookURL = decoded.inArguments[1].url;
             var contentJSON = decoded.inArguments[2].contentJSON;
             var firstName = decoded.inArguments[5].firstName;
             contentJSON = contentJSON.replace(/@firstName/g, firstName);
 
+            console.log('outPayload: ', contentJSON);
 
             /* Webhook API Call */
 
