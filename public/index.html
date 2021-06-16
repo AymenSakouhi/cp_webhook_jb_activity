@@ -27,9 +27,30 @@
 </head>
 
 <body>
+            <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__body">
+        <h2>
+            <span class="slds-text-heading_large">Settings</span>
+          
+        </h2>
+      </div>
+    </header>
+  </div>
             <div class="slds-form">
               <div class="slds-form-element slds-form-element_stacked">
                 <label class="slds-form-element__label" for="url"><abbr class="slds-required" title="required">* </abbr>Webhook Path</label>
+                <div class="slds-form-element__icon">
+                <button class="slds-button slds-button_icon" aria-describedby="help">
+                  <svg class="slds-button__icon" aria-hidden="true">
+                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Help</span>
+                </button>
+                <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-45px;left:-15px;width:170px">
+                  <div class="slds-popover__body">Enter path only, e.g. 'https://hooks.zapier.com/hooks/catch/id1/id2/' will be '/hooks/catch/id1/id2/'</div>
+                </div>
+              </div>
                 <div class="slds-form-element__control">
                   <input type="text" id="url" placeholder="/hooks/catch/id1/id2/" class="slds-input" required=""/>
                 </div>
@@ -41,6 +62,43 @@
                 </div>
               </div>
             </div>
+
+            <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__body">
+        <h2>
+            <span class="slds-text-heading_large">Variables Overview</span>
+          
+        </h2>
+      </div>
+    </header>
+  </div>
+
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout slds-table_striped" aria-label=" Example headless table of Opportunities with cell content truncated ">
+              <thead>
+                <tr class="slds-line-height_reset">
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Typical Column Header">Value</div>
+                  </th>
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Truncated, no wrap">Variable</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="slds-hint-parent">
+                  <th data-label="Typical Column Header" scope="row">
+                    <div class="slds-truncate" title="Typical cell content">First Name</div>
+                  </th>
+                  <td class="slds-cell-wrap" data-label="Truncated, no wrap">
+                    <div class="slds-truncate" title="Cell content that is very long.
+            It also has a line break.
+            It has more than one line break">@firstName</div>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
 
             <!--<label for="url">Webhook URL</label><br>
             <input type="text" id="url" name="url"><br>
