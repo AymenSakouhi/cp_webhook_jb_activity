@@ -143,7 +143,7 @@ exports.execute = function (req, res) {
             contentJSON = contentJSON.replace(/@budget/g, budget);
             var rate = decoded.inArguments[23].rate;
             contentJSON = contentJSON.replace(/@rate/g, rate);
-            var phone = decoded.inArguments[24].phone;
+            var studyAdvisor = decoded.inArguments[24].studyAdvisor;
             contentJSON = contentJSON.replace(/@studyAdvisor/g, studyAdvisor);
 
             console.log('outPayload: ', contentJSON);
