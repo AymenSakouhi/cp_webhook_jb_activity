@@ -197,7 +197,10 @@ define([
             },
             {
                 "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
-            }
+            },
+            {
+                "phone": "{{InteractionDefaults.Phone}}"
+            },
         ];
         
         payload['metaData'].isConfigured = true;

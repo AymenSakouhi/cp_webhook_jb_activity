@@ -106,6 +106,7 @@ exports.execute = function (req, res) {
             var webhookURL = decoded.inArguments[1].url;
             var contentJSON = decoded.inArguments[2].contentJSON;
             var firstName = decoded.inArguments[5].firstName;
+            var phone = decoded.inArguments[6].phone;
             contentJSON = contentJSON.replace(/@firstName/g, firstName);
 
             console.log('outPayload: ', contentJSON);
