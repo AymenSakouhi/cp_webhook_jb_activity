@@ -179,7 +179,7 @@ define([
         }
         payload.name = name;
 
-        payload['arguments'].execute.inArguments = [
+        payload['arguments'].execute.inArguments = [{
              "tokens": authTokens,
              "EntryObject": entryObject,
              "url": url, 
@@ -190,7 +190,7 @@ define([
              "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
              "firstName1": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
              "firstName2": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}"
-        ];
+        }];
         
         payload['metaData'].isConfigured = true;
 
