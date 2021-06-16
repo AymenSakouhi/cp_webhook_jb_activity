@@ -95,9 +95,9 @@ exports.execute = function (req, res) {
             var decodedArgs = decoded.inArguments[0];
             console.log('decoded in arguments: ', decoded.inArguments.length);
 
-            // for(var i = 0; i < decoded.inArguments.length;i++){
-            //     console.log('arg ', i , ':', decoded.inArguments[i]);
-            // }
+            for(var i = 0; i < decoded.inArguments.length;i++){
+                console.log('arg ', i , ':', decoded.inArguments[i]);
+            }
 
             console.log('inArguments: ', decoded.inArguments);
             console.log('URL: ', decoded.inArguments[1].url);
