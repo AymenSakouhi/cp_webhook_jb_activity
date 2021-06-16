@@ -201,7 +201,7 @@ define([
                 "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
             },
             {
-                "phone": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
+                "phone": "{{Event."+ eventDefinitionKey + ".\"" + phone + "\"}}",
             },
         ];
         
