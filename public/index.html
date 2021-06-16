@@ -58,7 +58,7 @@
               <div class="slds-form-element slds-form-element_stacked">
                 <label class="slds-form-element__label" for="payload">Payload</label>
                 <div class="slds-form-element__control">
-                  <textarea id="payload" placeholder="Enter your payload" class="slds-textarea" rows="20"></textarea>
+                  <textarea id="payload" placeholder="Enter your payload" class="slds-textarea" rows="10"></textarea>
                 </div>
               </div>
             </div>
@@ -78,24 +78,45 @@
               <thead>
                 <tr class="slds-line-height_reset">
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Typical Column Header">Value</div>
+                    <div class="slds-truncate" title="Value">Value</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Truncated, no wrap">Variable</div>
+                    <div class="slds-truncate" title="Variable">Variable</div>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="slds-hint-parent">
-                  <th data-label="Typical Column Header" scope="row">
-                    <div class="slds-truncate" title="Typical cell content">First Name</div>
+                  <th scope="row">
+                    <div class="slds-truncate">Contact ID</div>
                   </th>
-                  <td class="slds-cell-wrap" data-label="Truncated, no wrap">
-                    <div class="slds-truncate" title="Cell content that is very long.
-            It also has a line break.
-            It has more than one line break">@firstName</div>
+                  <td class="slds-cell-wrap" >
+                    <div class="slds-truncate" >@contactId</div>
                   </td>
-
+                </tr>
+                <tr class="slds-hint-parent">
+                  <th scope="row">
+                    <div class="slds-truncate">Account ID</div>
+                  </th>
+                  <td class="slds-cell-wrap" >
+                    <div class="slds-truncate" >@accountId</div>
+                  </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                  <th scope="row">
+                    <div class="slds-truncate">Opportunity ID</div>
+                  </th>
+                  <td class="slds-cell-wrap" >
+                    <div class="slds-truncate" >@opportunityID</div>
+                  </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                  <th scope="row">
+                    <div class="slds-truncate">First Name</div>
+                  </th>
+                  <td class="slds-cell-wrap" >
+                    <div class="slds-truncate" >@firstName</div>
+                  </td>
                 </tr>
               </tbody>
             </table>

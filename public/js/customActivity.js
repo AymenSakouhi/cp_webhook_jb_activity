@@ -221,6 +221,9 @@ define([
             { "budget": "{{Event."+ eventDefinitionKey + ".\"" + budget + "\"}}" },
             { "rate": "{{Event."+ eventDefinitionKey + ".\"" + rate + "\"}}" },
             { "studyAdvisor": "{{Event."+ eventDefinitionKey + ".\"" + studyAdvisor + "\"}}" },
+            {
+                    "contactId": "{{Contact.Key}}"
+                },
         ];
         
         payload['metaData'].isConfigured = true;
