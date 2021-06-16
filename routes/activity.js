@@ -105,6 +105,8 @@ exports.execute = function (req, res) {
 
             var webhookURL = decoded.inArguments[1].url;
             var contentJSON = decoded.inArguments[2].contentJSON;
+            var email = decoded.inArguments[3].emailAddress;
+            contentJSON = contentJSON.replace(/@email/g, email);
             var firstName = decoded.inArguments[5].firstName;
             contentJSON = contentJSON.replace(/@firstName/g, firstName);
             var phone = decoded.inArguments[6].phone;
