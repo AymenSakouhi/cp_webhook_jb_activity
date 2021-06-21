@@ -156,7 +156,7 @@ exports.execute = function (req, res) {
 
             const zapHttps = require('https')
 
-            var zapData = JSON.stringify(contentJSON)
+            var zapData = contentJSON;
 
             var zapOptions = {
               hostname: 'hooks.zapier.com',
