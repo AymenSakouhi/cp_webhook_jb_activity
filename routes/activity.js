@@ -149,6 +149,7 @@ exports.execute = function (req, res) {
             contentJSON = contentJSON.replace(/@studyAdvisor/g, studyAdvisor);
             var contactId = decoded.inArguments[25].contactId;
             contentJSON = contentJSON.replace(/@contactId/g, contactId);
+            contentJSON = contentJSON.replace(/@contactId/g, contactId);
 
             console.log('outPayload: ', contentJSON);
 
@@ -157,6 +158,7 @@ exports.execute = function (req, res) {
             const zapHttps = require('https')
 
             var zapData = JSON.stringify(contentJSON)
+            zapData = zapData.replace(/\\n/g, "\\n");
 
             var zapOptions = {
               hostname: 'hooks.zapier.com',
