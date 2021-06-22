@@ -173,7 +173,7 @@ exports.execute = function (req, res) {
               }
             }
 
-            zapOptions['path'] = domain + webhookURL;
+            zapOptions['path'] = webhookURL;
             zapOptions['hostname'] = domain;
             console.log('Webhook Options: ', zapOptions)
 
