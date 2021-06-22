@@ -38,6 +38,10 @@ define([
             var url = getURL();
         });
 
+        $('#domain').change(function() {
+            var domain = getDomain();
+        });
+
         $('#payload').change(function() {
             var contentJSON = getcontentJSON();
         });
@@ -71,6 +75,7 @@ define([
         
         var url;
         var contentJSON;
+        var domain;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -93,13 +98,17 @@ define([
                 if (key === 'contentJSON') {
                     contentJSON = val;
                 }
+
+                if (key === 'domain') {
+                    domain = val;
+                }
               
             });
         });
 
         $('#url').val(url);
         $('#payload').val(contentJSON);
-
+        $('#domain').val(domain);
         connection.trigger('updateButton', {
             button: 'next',
             text: 'done',
@@ -123,6 +132,7 @@ define([
         var name = 'Webhook Settings';
         var url = getURL();
         var contentJSON = getcontentJSON();
+        var domain = getDomain();
         var preObject;
         var firstName;
         var lastName;
@@ -241,9 +251,8 @@ define([
             { "budget": "{{Event."+ eventDefinitionKey + ".\"" + budget + "\"}}" },
             { "rate": "{{Event."+ eventDefinitionKey + ".\"" + rate + "\"}}" },
             { "studyAdvisor": "{{Event."+ eventDefinitionKey + ".\"" + studyAdvisor + "\"}}" },
-            {
-                    "contactId": "{{Contact.Key}}"
-                },
+            { "contactId": "{{Contact.Key}}"},
+            { "domain": domain},
         ];
         
         payload['metaData'].isConfigured = true;
@@ -255,6 +264,11 @@ define([
     function getURL() {
         console.log('getURL: ' + $('#url').val());
         return $('#url').val().trim();
+    }
+
+    function getDomain() {
+        console.log('getDomain: ' + $('#domain').val());
+        return $('#domain').val().trim();
     }
 
     function getcontentJSON() {

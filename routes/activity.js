@@ -149,7 +149,7 @@ exports.execute = function (req, res) {
             contentJSON = contentJSON.replace(/@studyAdvisor/g, studyAdvisor);
             var contactId = decoded.inArguments[25].contactId;
             contentJSON = contentJSON.replace(/@contactId/g, contactId);
-            contentJSON = contentJSON.replace(/@contactId/g, contactId);
+            var domain = decoded.inArguments[26].domain;
 
             console.log('outPayload: ', contentJSON);
 
@@ -163,7 +163,7 @@ exports.execute = function (req, res) {
             console.log('Replaced Payload: ', zapData);
 
             var zapOptions = {
-              hostname: 'hooks.zapier.com',
+              hostname: '',
               port: 443,
               path: '',
               method: 'POST',
@@ -173,6 +173,7 @@ exports.execute = function (req, res) {
             }
 
             zapOptions['path'] = webhookURL;
+            zapOptions['hostname'] = domain;
 
             const zapReq = zapHttps.request(zapOptions, resp => {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)

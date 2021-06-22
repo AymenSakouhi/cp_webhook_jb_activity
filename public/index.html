@@ -39,18 +39,13 @@
   </div>
             <div class="slds-form">
               <div class="slds-form-element slds-form-element_stacked">
-                <label class="slds-form-element__label" for="url"><abbr class="slds-required" title="required">* </abbr>Webhook Path</label>
-                <!--<div class="slds-form-element__icon">
-                <button class="slds-button slds-button_icon" aria-describedby="help">
-                  <svg class="slds-button__icon" aria-hidden="true">
-                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                  </svg>
-                  <span class="slds-assistive-text">Help</span>
-                </button>
-                <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-45px;left:-15px;width:170px">
-                  <div class="slds-popover__body">Enter path only, e.g. 'https://hooks.zapier.com/hooks/catch/id1/id2/' will be '/hooks/catch/id1/id2/'</div>
+                <label class="slds-form-element__label" for="domain"><abbr class="slds-required" title="required">* </abbr>Webhook Domain</label>
+                <div class="slds-form-element__control">
+                  <input type="text" id="domain" placeholder="/hooks/catch/id1/id2/" class="slds-input" required=""/>
                 </div>
-              </div>-->
+              </div>
+              <div class="slds-form-element slds-form-element_stacked">
+                <label class="slds-form-element__label" for="url"><abbr class="slds-required" title="required">* </abbr>Webhook Path</label>
                 <div class="slds-form-element__control">
                   <input type="text" id="url" placeholder="/hooks/catch/id1/id2/" class="slds-input" required=""/>
                 </div>
