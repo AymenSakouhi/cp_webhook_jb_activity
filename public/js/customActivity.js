@@ -177,7 +177,27 @@ define([
           firstName = 'OpportunityArchive__c:Account__r:FirstName'
           break;
         default:
-          //code to be executed if n is different from case 1 and 2
+            firstName = 'Opportunity:Account:FirstName';
+            lastName = 'Opportunity:Account:LastName';
+            accountId = 'Opportunity:Account:Id';
+            opportunityId = 'Opportunity:Id';
+            stageName = 'Opportunity:StageName';
+            programFamily = 'Opportunity:ProgramFamily__c';
+            cpAccountId = 'Opportunity:Account:CP_Account_ID__c';
+            salutation = 'Opportunity:Account:Salutation';
+            productName = 'Opportunity:CourseOfStudyLookup__r:Product_Display_Name__c';
+            productFamily = 'Opportunity:CourseOfStudyLookup__r:Family';
+            productId = 'Opportunity:CourseOfStudyLookup__r:Id';
+            degree = 'Opportunity:DegreeName__c';
+            createdDate = 'Opportunity:CreatedDate';
+            optIn = 'Opportunity:Account:OptInEmail__c';
+            country = 'Opportunity:Account:ShippingCountry';
+            voucher = 'Opportunity:VoucherID__c';
+            workExperience = 'Opportunity:WorkExperience__c';
+            budget = 'Opportunity:BudgetPerMonth__c';
+            rate = 'Opportunity:RatePerInterval__c';
+            studyAdvisor = 'Opportunity:StudyAdvisor__c';
+            phone = 'Opportunity:Account:Phone';
         }
         payload.name = name;
 
