@@ -236,30 +236,30 @@ exports.execute = function (req, res) {
 
             const mcLogHttps = require('https')
 
-            const logPayload = '[';
-            logPayload += '{';
-            logPayload += '    "keys":{';
-            logPayload += '            "id": "1111"';
-            logPayload += '            },';
-            logPayload += '    "values":{';
-            logPayload += '            "request_id": "awdawdwa",';
-            logPayload += '            "attempt": "dfefe",';
-            logPayload += '            "status": "OK",';
-            logPayload += '            "statusCode": "400"';
-            logPayload += '            }';
-            logPayload += '},';
-            logPayload += '{';
-            logPayload += '    "keys":{';
-            logPayload += '            "id": "2222"';
-            logPayload += '            },';
-            logPayload += '    "values":{';
-            logPayload += '            "request_id": "awdawdwa",';
-            logPayload += '            "attempt": "dfefe",';
-            logPayload += '            "status": "OK",';
-            logPayload += '            "statusCode": "400"';
-            logPayload += '            }';
-            logPayload += '}';
-            logPayload += ']';
+            const logPayload = [
+            {
+            "keys":{
+            "id": "1111"
+            },
+            "values":{
+            "request_id": "awdawdwa",
+            "attempt": "dfefe",
+            "status": "OK",
+            "statusCode": "400"
+            }
+            }
+            {
+                "keys":{
+            "id": "2222"
+            },
+                "values":{
+            "request_id": "awdawdwa",
+            "attempt": "dfefe",
+            "status": "OK",
+            "statusCode": "400"
+            }
+            }
+            ]
 
             console.log('log payload: ', logPayload);
             const mcLogData = logPayload; //JSON.stringify(payload);
