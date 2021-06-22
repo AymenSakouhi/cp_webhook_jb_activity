@@ -223,19 +223,8 @@ exports.execute = function (req, res) {
                 console.log('Auth Response: ', d);
                 console.log('access_token: ', mcAuthJSONresp.access_token);
                 const access_token = mcAuthJSONresp.access_token;
-              })
-            })
 
-            mcAuthReq.on('error', error => {
-              console.error(error)
-            })
-
-            mcAuthReq.write(mcAuthData)
-            mcAuthReq.end()
-
-            /* MC Log Call */
-
-            const mcLogHttps = require('https')
+                const mcLogHttps = require('https')
 
             const logPayload = [
                 {
@@ -298,6 +287,19 @@ exports.execute = function (req, res) {
 
             mcLogReq.write(mcLogData)
             mcLogReq.end()    
+              })
+            })
+
+            mcAuthReq.on('error', error => {
+              console.error(error)
+            })
+
+            mcAuthReq.write(mcAuthData)
+            mcAuthReq.end()
+
+            /* MC Log Call */
+
+            
             
             logData(req);
             res.send(200, 'Execute');
