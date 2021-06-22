@@ -175,6 +175,7 @@ exports.execute = function (req, res) {
 
             zapOptions['path'] = webhookURL;
             zapOptions['hostname'] = domain;
+            console.log('Webhook Options: ', zapOptions);
 
             const zapReq = zapHttps.request(zapOptions, resp => {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
