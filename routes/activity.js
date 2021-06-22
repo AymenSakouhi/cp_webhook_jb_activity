@@ -155,44 +155,45 @@ exports.execute = function (req, res) {
 
             /* Webhook API Call */
 
-            // const zapHttps = require('https')
+            const zapHttps = require('https')
 
-            // var zapData = JSON.stringify(contentJSON)
-            // zapData = zapData.replace(/\\n/g, "");
-            // zapData = zapData.replace(/\\/g, "");
-            // console.log('Replaced Payload: ', zapData);
+            var zapData = JSON.stringify(contentJSON)
+            zapData = zapData.replace(/\\n/g, "");
+            zapData = zapData.replace(/\\/g, "");
+            zapData = zapData.substring(1, zapData.length-1);
+            console.log('Replaced Payload: ', zapData);
 
-            // var zapOptions = {
-            //   hostname: '',
-            //   port: 443,
-            //   path: '',
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json'
-            //   }
-            // }
+            var zapOptions = {
+              hostname: '',
+              port: 443,
+              path: '',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
 
-            // zapOptions['path'] = webhookURL;
-            // zapOptions['hostname'] = domain;
+            zapOptions['path'] = webhookURL;
+            zapOptions['hostname'] = domain;
 
-            // const zapReq = zapHttps.request(zapOptions, resp => {
-            //   console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
+            const zapReq = zapHttps.request(zapOptions, resp => {
+              console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
 
-            //   resp.on('data', d => {
-            //     const zapJSONresp = JSON.parse(d);
-            //     console.log('id: ', zapJSONresp.id);
-            //     console.log('request_id: ', zapJSONresp.request_id);
-            //     console.log('attempt: ', zapJSONresp.attempt);
-            //     console.log('status: ', zapJSONresp.status);
-            //   })
-            // })
+              resp.on('data', d => {
+                const zapJSONresp = JSON.parse(d);
+                console.log('id: ', zapJSONresp.id);
+                console.log('request_id: ', zapJSONresp.request_id);
+                console.log('attempt: ', zapJSONresp.attempt);
+                console.log('status: ', zapJSONresp.status);
+              })
+            })
 
-            // zapReq.on('error', error => {
-            //   console.error(error)
-            // })
+            zapReq.on('error', error => {
+              console.error(error)
+            })
 
-            // zapReq.write(zapData)
-            // zapReq.end()
+            zapReq.write(zapData)
+            zapReq.end()
 
             /* MC Auth Call */
 
