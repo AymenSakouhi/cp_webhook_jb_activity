@@ -175,7 +175,7 @@ exports.execute = function (req, res) {
 
             zapOptions['path'] = webhookURL;
             zapOptions['hostname'] = domain;
-            console.log('Webhook Options: ', zapOptions);
+            console.log('Webhook Options: ', zapOptions)
 
             const zapReq = zapHttps.request(zapOptions, resp => {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
@@ -198,7 +198,7 @@ exports.execute = function (req, res) {
 
             /* MC Auth Call */
 
-
+            var access_token;
             const mcAuthHttps = require('https')
 
             const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
@@ -223,9 +223,22 @@ exports.execute = function (req, res) {
                 const mcAuthJSONresp = JSON.parse(d);
                 console.log('Auth Response: ', d);
                 console.log('access_token: ', mcAuthJSONresp.access_token);
-                const access_token = mcAuthJSONresp.access_token;
+                access_token = mcAuthJSONresp.access_token;
 
-                const mcLogHttps = require('https')
+                
+              })
+            })
+
+            mcAuthReq.on('error', error => {
+              console.error(error)
+            })
+
+            mcAuthReq.write(mcAuthData)
+            mcAuthReq.end()
+
+            /* MC Log Call */
+
+            const mcLogHttps = require('https')
 
             const logPayload = [
                 {
@@ -288,19 +301,6 @@ exports.execute = function (req, res) {
 
             mcLogReq.write(mcLogData)
             mcLogReq.end()    
-              })
-            })
-
-            mcAuthReq.on('error', error => {
-              console.error(error)
-            })
-
-            mcAuthReq.write(mcAuthData)
-            mcAuthReq.end()
-
-            /* MC Log Call */
-
-            
             
             logData(req);
             res.send(200, 'Execute');
