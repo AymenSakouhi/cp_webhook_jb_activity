@@ -158,7 +158,7 @@ exports.execute = function (req, res) {
             const zapHttps = require('https')
 
             var zapData = JSON.stringify(contentJSON)
-            zapData = zapData.replace(/\n/g, "");
+            zapData = zapData.replace(/\\n/g, "");
             console.log('Replaced Payload: ', zapData);
 
             var zapOptions = {
