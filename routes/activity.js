@@ -156,6 +156,7 @@ exports.execute = function (req, res) {
             /* Webhook API Call */
 
             const zapHttps = require('https')
+            var statusCode;
 
             var zapData = JSON.stringify(contentJSON)
             zapData = zapData.replace(/\\n/g, "");
@@ -179,6 +180,7 @@ exports.execute = function (req, res) {
 
             const zapReq = zapHttps.request(zapOptions, resp => {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
+              var statusCode = resp.statusCode;
 
               resp.on('data', d => {
                 const zapJSONresp = JSON.parse(d);
@@ -234,7 +236,7 @@ exports.execute = function (req, res) {
                     },
                     "values": {
                       "contactId": contactId,
-                      "status": resp.statusCode,
+                      "status": statusCode,
                       "payload": contentJSON,
                       "response": resp.content,
                       "url": domain + webhookURL
