@@ -198,45 +198,50 @@ exports.execute = function (req, res) {
 
             // /* MC Auth Call */
 
-            var access_token;
-            const mcAuthHttps = require('https')
+            var access_token = await getToken();
 
-            const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-            console.log('auth payload: ', authPayload);
-            const mcAuthData = authPayload; //JSON.stringify(payload);
+            function getToken() {
+                const mcAuthHttps = require('https')
 
-            const mcAuthOptions = {
-              hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
-              port: 443,
-              path: '/v2/token/',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              }
+                const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+                console.log('auth payload: ', authPayload);
+                const mcAuthData = authPayload; //JSON.stringify(payload);
+
+                const mcAuthOptions = {
+                  hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+                  port: 443,
+                  path: '/v2/token/',
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                }
+
+                const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
+                  console.log(`EXECUTE MC Auth Status: ${resp.statusCode}`)
+
+                  resp.on('data', d => {
+                    console.log(`Data chunk available: ${d}`)
+                    const mcAuthJSONresp = JSON.parse(d);
+                    console.log('Auth Response: ', d);
+                    console.log('access_token: ', mcAuthJSONresp.access_token);
+                    access_token = mcAuthJSONresp.access_token;
+
+                    
+                  })
+                })
+
+                mcAuthReq.on('error', error => {
+                  console.error(error)
+                })
+
+                mcAuthReq.write(mcAuthData)
+                mcAuthReq.end()
+
+                return access_token;
             }
 
-            const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
-              console.log(`EXECUTE MC Auth Status: ${resp.statusCode}`)
-
-              resp.on('data', d => {
-                console.log(`Data chunk available: ${d}`)
-                const mcAuthJSONresp = JSON.parse(d);
-                console.log('Auth Response: ', d);
-                console.log('access_token: ', mcAuthJSONresp.access_token);
-                access_token = mcAuthJSONresp.access_token;
-
-                
-              })
-            })
-
-            mcAuthReq.on('error', error => {
-              console.error(error)
-            })
-
-            mcAuthReq.write(mcAuthData)
-            mcAuthReq.end()
-
-            // /* MC Log Call */
+            /* MC Log Call */
 
             const mcLogHttps = require('https')
 
