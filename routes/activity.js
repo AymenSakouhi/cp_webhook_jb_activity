@@ -240,7 +240,7 @@ exports.execute = function (req, res) {
                     "values": {
                       "contactId": contactId,
                       "status": statusCode,
-                      "payload": contentJSON,
+                      "payload": JSON.stringify(contentJSON),
                       "response": zapResponse,
                       "url": domain + webhookURL
                     }
