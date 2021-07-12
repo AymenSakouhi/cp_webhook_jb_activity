@@ -265,7 +265,7 @@ exports.execute = function (req, res) {
                   method: 'POST',
                   auth: '', 
                   headers: {
-                    Content-Type: 'application/json',
+                    'Content-Type': 'application/json',
                     Authorization: ''
                   }
                 }
