@@ -199,7 +199,7 @@ exports.execute = function (req, res) {
             // /* MC Auth Call */
 
             function getToken() {
-                const token;
+                var token = 'undefined2';
                 const mcAuthHttps = require('https')
 
                 const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
