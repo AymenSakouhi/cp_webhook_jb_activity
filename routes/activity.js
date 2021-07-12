@@ -229,30 +229,28 @@ exports.execute = function (req, res) {
                 const mcLogHttps = require('https')
 
                 const logPayload = [
-                    {
-                        keys:{
-                            id: "1111"
-                        },
-                        values:{
-                            request_id: "awdawdwa",
-                            attempt: "dfefe",
-                            status: "OK",
-                            statusCode: "400"
-                        }
+                  {
+                    "keys": {
+                      "id": "1111"
                     },
-                    {
-                        keys:
-                        {
-                            id: "2222"
-                        },
-                        values:
-                        {
-                            request_id: "awdawdwa",
-                            attempt: "dfefe",
-                            status: "OK",
-                            statusCode: "400"
-                        }
+                    "values": {
+                      "request_id": "awdawdwa",
+                      "attempt": "dfefe",
+                      "status": "OK",
+                      "statusCode": "400"
                     }
+                  },
+                  {
+                    "keys": {
+                      "id": "2222"
+                    },
+                    "values": {
+                      "request_id": "awdawdwa",
+                      "attempt": "dfefe",
+                      "status": "OK",
+                      "statusCode": "400"
+                    }
+                  }
                 ]
 
                 console.log('log payload: ', logPayload);
@@ -263,7 +261,6 @@ exports.execute = function (req, res) {
                   port: 443,
                   path: '/hub/v1/dataevents/key:whLog/rowset',
                   method: 'POST',
-                  auth: '', 
                   headers: {
                     'Content-Type': 'application/json',
                     Authorization: ''
