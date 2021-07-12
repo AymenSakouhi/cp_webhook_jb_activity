@@ -242,27 +242,27 @@ exports.execute = function (req, res) {
 
             const logPayload = [
                 {
-                    "keys":{
-                        "id": "1111"
+                    keys:{
+                        id: "1111"
                     },
-                    "values":{
-                        "request_id": "awdawdwa",
-                        "attempt": "dfefe",
-                        "status": "OK",
-                        "statusCode": "400"
+                    values:{
+                        request_id: "awdawdwa",
+                        attempt: "dfefe",
+                        status: "OK",
+                        statusCode: "400"
                     }
                 },
                 {
-                    "keys":
+                    keys:
                     {
-                        "id": "2222"
+                        id: "2222"
                     },
-                    "values":
+                    values:
                     {
-                        "request_id": "awdawdwa",
-                        "attempt": "dfefe",
-                        "status": "OK",
-                        "statusCode": "400"
+                        request_id: "awdawdwa",
+                        attempt: "dfefe",
+                        status: "OK",
+                        statusCode: "400"
                     }
                 }
             ]
