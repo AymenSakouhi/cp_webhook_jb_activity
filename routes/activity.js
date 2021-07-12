@@ -251,7 +251,7 @@ exports.execute = function (req, res) {
 
                 logPayload['contactId'] = contactId;
                 logPayload['status'] = "200";
-                logPayload['payload'] = zapdata;
+                logPayload['payload'] = zapData;
                 logPayload['response'] = "wwww";
                 logPayload['url'] = domain + webhookURL;
 
