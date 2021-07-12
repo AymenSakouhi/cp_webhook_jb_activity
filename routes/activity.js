@@ -198,7 +198,7 @@ exports.execute = function (req, res) {
 
             // /* MC Auth Call */
 
-            var access_token = await getToken();
+            var access_token;
 
             const mcAuthHttps = require('https')
 
