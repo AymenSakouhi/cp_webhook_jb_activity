@@ -254,7 +254,7 @@ exports.execute = function (req, res) {
                 ]
 
                 console.log('log payload: ', logPayload);
-                const mcLogData = logPayload; //JSON.stringify(payload);
+                const mcLogData = JSON.stringify(logPayload);
 
                 const mcLogOptions = {
                   hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
