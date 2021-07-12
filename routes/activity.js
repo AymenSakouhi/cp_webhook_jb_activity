@@ -281,7 +281,7 @@ exports.execute = function (req, res) {
               }
             }
 
-            console.log('access_token LOG CALL: ', mcAuthJSONresp.access_token);
+            console.log('access_token LOG CALL: ', access_token);
             mcLogOptions['auth'] = 'Bearer' + access_token;
             console.log('log options: ', mcLogOptions);
 
