@@ -299,7 +299,7 @@ exports.execute = function (req, res) {
               console.error(error)
             })
 
-            mcLogReq.write(mcLogData)
+            mcLogReq.write(mcLogData.toString())
             mcLogReq.end()    
             
             logData(req);
