@@ -155,86 +155,86 @@ exports.execute = function (req, res) {
 
             /* Webhook API Call */
 
-            const zapHttps = require('https')
+            // const zapHttps = require('https')
 
-            var zapData = JSON.stringify(contentJSON)
-            zapData = zapData.replace(/\\n/g, "");
-            zapData = zapData.replace(/\\/g, "");
-            zapData = zapData.substring(1, zapData.length-1);
-            console.log('Replaced Payload: ', zapData);
+            // var zapData = JSON.stringify(contentJSON)
+            // zapData = zapData.replace(/\\n/g, "");
+            // zapData = zapData.replace(/\\/g, "");
+            // zapData = zapData.substring(1, zapData.length-1);
+            // console.log('Replaced Payload: ', zapData);
 
-            var zapOptions = {
-              hostname: '',
-              port: 443,
-              path: '',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }
+            // var zapOptions = {
+            //   hostname: '',
+            //   port: 443,
+            //   path: '',
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json'
+            //   }
+            // }
 
-            zapOptions['path'] = webhookURL;
-            zapOptions['hostname'] = domain;
-            console.log('Webhook Options: ', zapOptions)
+            // zapOptions['path'] = webhookURL;
+            // zapOptions['hostname'] = domain;
+            // console.log('Webhook Options: ', zapOptions)
 
-            const zapReq = zapHttps.request(zapOptions, resp => {
-              console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
+            // const zapReq = zapHttps.request(zapOptions, resp => {
+            //   console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
 
-              resp.on('data', d => {
-                const zapJSONresp = JSON.parse(d);
-                console.log('id: ', zapJSONresp.id);
-                console.log('request_id: ', zapJSONresp.request_id);
-                console.log('attempt: ', zapJSONresp.attempt);
-                console.log('status: ', zapJSONresp.status);
-              })
-            })
+            //   resp.on('data', d => {
+            //     const zapJSONresp = JSON.parse(d);
+            //     console.log('id: ', zapJSONresp.id);
+            //     console.log('request_id: ', zapJSONresp.request_id);
+            //     console.log('attempt: ', zapJSONresp.attempt);
+            //     console.log('status: ', zapJSONresp.status);
+            //   })
+            // })
 
-            zapReq.on('error', error => {
-              console.error(error)
-            })
+            // zapReq.on('error', error => {
+            //   console.error(error)
+            // })
 
-            zapReq.write(zapData)
-            zapReq.end()
+            // zapReq.write(zapData)
+            // zapReq.end()
 
-            // /* MC Auth Call */
+            // // /* MC Auth Call */
 
-            var access_token;
-            const mcAuthHttps = require('https')
+            // var access_token;
+            // const mcAuthHttps = require('https')
 
-            const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-            console.log('auth payload: ', authPayload);
-            const mcAuthData = authPayload; //JSON.stringify(payload);
+            // const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+            // console.log('auth payload: ', authPayload);
+            // const mcAuthData = authPayload; //JSON.stringify(payload);
 
-            const mcAuthOptions = {
-              hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
-              port: 443,
-              path: '/v2/token/',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }
+            // const mcAuthOptions = {
+            //   hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+            //   port: 443,
+            //   path: '/v2/token/',
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json'
+            //   }
+            // }
 
-            const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
-              console.log(`EXECUTE MC Auth Status: ${resp.statusCode}`)
+            // const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
+            //   console.log(`EXECUTE MC Auth Status: ${resp.statusCode}`)
 
-              resp.on('data', d => {
-                console.log(`Data chunk available: ${d}`)
-                const mcAuthJSONresp = JSON.parse(d);
-                console.log('Auth Response: ', d);
-                console.log('access_token: ', mcAuthJSONresp.access_token);
-                access_token = mcAuthJSONresp.access_token;
+            //   resp.on('data', d => {
+            //     console.log(`Data chunk available: ${d}`)
+            //     const mcAuthJSONresp = JSON.parse(d);
+            //     console.log('Auth Response: ', d);
+            //     console.log('access_token: ', mcAuthJSONresp.access_token);
+            //     access_token = mcAuthJSONresp.access_token;
 
                 
-              })
-            })
+            //   })
+            // })
 
-            mcAuthReq.on('error', error => {
-              console.error(error)
-            })
+            // mcAuthReq.on('error', error => {
+            //   console.error(error)
+            // })
 
-            mcAuthReq.write(mcAuthData)
-            mcAuthReq.end()
+            // mcAuthReq.write(mcAuthData)
+            // mcAuthReq.end()
 
             // /* MC Log Call */
 
