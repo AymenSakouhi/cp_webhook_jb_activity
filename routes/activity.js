@@ -157,6 +157,7 @@ exports.execute = function (req, res) {
 
             const zapHttps = require('https')
             var statusCode;
+            var zapResponse;
 
             var zapData = JSON.stringify(contentJSON)
             zapData = zapData.replace(/\\n/g, "");
@@ -182,7 +183,9 @@ exports.execute = function (req, res) {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
               var statusCode = resp.statusCode;
 
+
               resp.on('data', d => {
+                var zapResponse = resp.content;
                 const zapJSONresp = JSON.parse(d);
                 console.log('id: ', zapJSONresp.id);
                 console.log('request_id: ', zapJSONresp.request_id);
