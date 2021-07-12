@@ -151,6 +151,7 @@ exports.execute = function (req, res) {
             contentJSON = contentJSON.replace(/@contactId/g, contactId);
             var domain = decoded.inArguments[26].domain;
 
+
             console.log('outPayload: ', contentJSON);
 
             /* Webhook API Call */
@@ -186,6 +187,7 @@ exports.execute = function (req, res) {
 
               resp.on('data', d => {
                 var zapResponse = resp.content;
+
                 const zapJSONresp = JSON.parse(d);
                 console.log('id: ', zapJSONresp.id);
                 console.log('request_id: ', zapJSONresp.request_id);
@@ -232,6 +234,7 @@ exports.execute = function (req, res) {
                 access_token = mcAuthJSONresp.access_token;
 
                 const mcLogHttps = require('https')
+                var logResponse = contentJSON.replace(/@opportunityId/g, opportunityId);
 
                 const logPayload = [
                   {
@@ -240,7 +243,7 @@ exports.execute = function (req, res) {
                     "values": {
                       "contactId": contactId,
                       "status": statusCode,
-                      "payload": JSON.parse(contentJSON),
+                      "payload": zapData,
                       "response": zapResponse,
                       "url": domain + webhookURL
                     }
