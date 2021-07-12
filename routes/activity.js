@@ -196,7 +196,7 @@ exports.execute = function (req, res) {
             zapReq.write(zapData)
             zapReq.end()
 
-            // /* MC Auth Call */
+            /* MC Auth Call 
 
             var access_token;
 
@@ -277,7 +277,7 @@ exports.execute = function (req, res) {
                   console.log(`EXECUTE MC LOG Status: ${resp.statusCode}`)
 
                   resp.on('data', d => {
-                    console.log(`Data chunk available: ${d}`)
+                    //console.log(`Data chunk available: ${d}`)
                     const mcLogJSONresp = JSON.parse(d);
                     console.log('Log Response: ', d);
                     console.log('Log Message: ', mcLogJSONresp.message);
@@ -302,7 +302,74 @@ exports.execute = function (req, res) {
             mcAuthReq.write(mcAuthData)
             mcAuthReq.end()
 
-            // /* MC Log Call */
+            */
+
+            access_token = 'eyJhbGciOiJIUzI1NiIsImtpZCI6IjQiLCJ2ZXIiOiIxIiwidHlwIjoiSldUIn0.eyJhY2Nlc3NfdG9rZW4iOiJaaWV2WUJnS25NMW12WEpTcXRvd2RFRUUiLCJjbGllbnRfaWQiOiI1dDAyczhkbXFyeDM5ZDk4c2J1dnk4ZTgiLCJlaWQiOjEwMDAwMjU1Miwic3RhY2tfa2V5IjoiUzEwIiwicGxhdGZvcm1fdmVyc2lvbiI6MiwiY2xpZW50X3R5cGUiOiJTZXJ2ZXJUb1NlcnZlciJ9.2BWG-7zWjcMSeVETPK1cqlIahktT7KOAcB1ty9FnWeM.f3iZfK8CRHa_hfgtIsvBUHp3rWuPVGTov4zEdak4jWMyKUahhX0gq16ZqKP2Kcrc_yH9KaSlvCoUsLwiPc_Mh_eV-viFH8r8VwEN9qzA8pbC6HWIOmS_jW0cjdXA_W6OzCGsYS7RVt9WANGimMV-VL4lYFVaREyT1m2LaZL1PFmSfimKFJF';
+
+                const mcLogHttps = require('https')
+
+                const logPayload = [
+                    {
+                        keys:{
+                            id: "1111"
+                        },
+                        values:{
+                            request_id: "awdawdwa",
+                            attempt: "dfefe",
+                            status: "OK",
+                            statusCode: "400"
+                        }
+                    },
+                    {
+                        keys:
+                        {
+                            id: "2222"
+                        },
+                        values:
+                        {
+                            request_id: "awdawdwa",
+                            attempt: "dfefe",
+                            status: "OK",
+                            statusCode: "400"
+                        }
+                    }
+                ]
+
+                console.log('log payload: ', logPayload);
+                const mcLogData = logPayload; //JSON.stringify(payload);
+
+                const mcLogOptions = {
+                  hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+                  port: 443,
+                  path: '/hub/v1/dataevents/key:whLog/rowset',
+                  method: 'POST',
+                  auth: '', 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                }
+
+                console.log('access_token LOG CALL: ', access_token);
+                mcLogOptions['auth'] = 'Bearer ' + access_token;
+                console.log('log options: ', mcLogOptions);
+
+                const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
+                  console.log(`EXECUTE MC LOG Status: ${resp.statusCode}`)
+
+                  resp.on('data', d => {
+                    //console.log(`Data chunk available: ${d}`)
+                    const mcLogJSONresp = JSON.parse(d);
+                    console.log('Log Response: ', d);
+                    console.log('Log Message: ', mcLogJSONresp.message);
+                  })
+                })
+
+                mcLogReq.on('error', error => {
+                  console.error(error)
+                })
+
+                mcLogReq.write(mcLogData.toString())
+                mcLogReq.end()  
 
             
             
