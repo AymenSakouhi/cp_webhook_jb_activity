@@ -234,7 +234,6 @@ exports.execute = function (req, res) {
                 access_token = mcAuthJSONresp.access_token;
 
                 const mcLogHttps = require('https')
-                var logResponse = contentJSON.replace(/@opportunityId/g, opportunityId);
 
                 const logPayload = [
                   {
@@ -243,7 +242,7 @@ exports.execute = function (req, res) {
                     "values": {
                       "contactId": contactId,
                       "status": "200",
-                      "payload": zapData,
+                      "payload": JSON.stringify(zapData),
                       "response": "test",
                       "url": domain + webhookURL
                     }
