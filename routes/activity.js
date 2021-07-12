@@ -242,9 +242,9 @@ exports.execute = function (req, res) {
                     },
                     "values": {
                       "contactId": contactId,
-                      "status": statusCode,
+                      "status": "200",
                       "payload": zapData,
-                      "response": zapResponse,
+                      "response": "test",
                       "url": domain + webhookURL
                     }
                   }
