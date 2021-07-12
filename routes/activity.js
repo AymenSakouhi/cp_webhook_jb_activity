@@ -241,7 +241,7 @@ exports.execute = function (req, res) {
                       "contactId": contactId,
                       "status": statusCode,
                       "payload": contentJSON,
-                      "response": resp.content,
+                      "response": zapResponse,
                       "url": domain + webhookURL
                     }
                   }
