@@ -237,17 +237,24 @@ exports.execute = function (req, res) {
 
                 const logPayload = [
                   {
-                    "keys": {
+                    keys: {
                     },
-                    "values": {
-                      "contactId": contactId,
-                      "status": "200",
-                      "payload": JSON.stringify(zapData),
-                      "response": "test",
-                      "url": domain + webhookURL
+                    values: {
+                      contactId: '',
+                      status: '',
+                      payload: '',
+                      response: '',
+                      url: ''
                     }
                   }
                 ]
+
+                logPayload['contactId'] = contactId;
+                logPayload['status'] = "200";
+                logPayload['payload'] = zapdata;
+                logPayload['response'] = "wwww";
+                logPayload['url'] = domain + webhookURL;
+
 
                 console.log('log payload: ', logPayload);
                 const mcLogData = JSON.stringify(logPayload);
