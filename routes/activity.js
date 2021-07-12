@@ -216,10 +216,10 @@ exports.execute = function (req, res) {
               }
             }
 
-            const mcAuthReq = mcAuthHttps.request(mcAuthOptions, resp => {
-              console.log(`EXECUTE MC Auth Status: ${resp.statusCode}`)
+            const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
+              console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
 
-              resp.on('data', d => {
+              respAuth.on('data', d => {
                 console.log(`Data chunk available: ${d}`)
                 const mcAuthJSONresp = JSON.parse(d);
                 console.log('Auth Response: ', d);
@@ -231,24 +231,13 @@ exports.execute = function (req, res) {
                 const logPayload = [
                   {
                     "keys": {
-                      "id": "1111",
-                      "request_id": "awdawdwa"
                     },
                     "values": {
-                      "attempt": "dfefe",
-                      "status": "OK",
-                      "statusCode": "400"
-                    }
-                  },
-                  {
-                    "keys": {
-                      "id": "2222",
-                      "request_id": "awdawdwa"
-                    },
-                    "values": {
-                      "attempt": "dfefe",
-                      "status": "OK",
-                      "statusCode": "400"
+                      "contactId": contactId,
+                      "status": resp.statusCode,
+                      "payload": contentJSON,
+                      "response": resp.content,
+                      "url": domain + webhookURL
                     }
                   }
                 ]
@@ -271,10 +260,10 @@ exports.execute = function (req, res) {
                 mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
                 console.log('log options: ', mcLogOptions);
 
-                const mcLogReq = mcLogHttps.request(mcLogOptions, resp => {
-                  console.log(`EXECUTE MC LOG Status: ${resp.statusCode}`)
+                const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
+                  console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
 
-                  resp.on('data', d => {
+                  respLog.on('data', d => {
                     console.log(`Data chunk available: ${d}`)
                     const mcLogJSONresp = JSON.parse(d);
                     console.log('Log Response: ', d);
