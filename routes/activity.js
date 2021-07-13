@@ -234,6 +234,7 @@ exports.execute = function (req, res) {
                 access_token = mcAuthJSONresp.access_token;
 
                 const mcLogHttps = require('https')
+                zapData = zapData.replace(/"/g, "'");
 
                 var logPayload = JSON.stringify([
                   {
@@ -244,25 +245,7 @@ exports.execute = function (req, res) {
                     "values": {
                       
                       "status": "undefined",
-                      "payload": {
-                        "gender": 1,
-                        "firstname": "ssd",
-                        "lastname": "sadsad",
-                        "email": "sandra_huett@persistent.com",
-                        "phone": "+43123213123",
-                        "country": "Germany",
-                        "courses": "Artificial Intelligence",
-                        "opt-in": "True",
-                        "formid": "59f070826f1aced067031a71",
-                        "language": "en",
-                        "datasources.5.referrer": null,
-                        "datasources.5.gclid": null,
-                        "datasources.5.tracking_url": null,
-                        "datasources.5.tracking_device": null,
-                        "site": "5b5882a792f38730d74b1c61",
-                        "json-response": 1,
-                        "message": "Hello World. wellcome!"
-                      },
+                      "payload": + zapData,
                       "response": "undefined",
                       "url": "hooks.zapier.com/hooks/catch/9270658/boao9sj/"
                     }
