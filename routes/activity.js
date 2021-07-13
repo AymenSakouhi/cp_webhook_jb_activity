@@ -239,7 +239,7 @@ exports.execute = function (req, res) {
                 console.log('Log zapData: ', zapData);
                 var zapDatatest = JSON.stringify(zapData);
 
-                var logPayload = JSON.stringify([
+                var logPayload = [
                   {
                     "keys": {
                         "contactId": "0031r00002uCn8dAAC",
@@ -248,12 +248,15 @@ exports.execute = function (req, res) {
                     "values": {
                       
                       "status": "undefined",
-                      "payload": + zapDatatest,
+                      "payload": "",
                       "response": + zapData,
                       "url": domain + webhookURL
                     }
                   }
-                ]);
+                ];
+
+                logPayload['payload'] = zapData;
+
 
 
 
@@ -265,7 +268,7 @@ exports.execute = function (req, res) {
 
 
                 console.log('log payload: ', logPayload);
-                const mcLogData = logPayload; //JSON.stringify(logPayload);
+                const mcLogData = JSON.stringify(logPayload);
 
                 const mcLogOptions = {
                   hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
