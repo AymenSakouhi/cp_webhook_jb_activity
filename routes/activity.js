@@ -237,11 +237,11 @@ exports.execute = function (req, res) {
 
                 var logPayload = "[keys: {},";
                 logPayload = logPayload + "values: {";
-                logPayload = logPayload + "      contactId: " + contactId + ",";
+                logPayload = logPayload + "      contactId: '" + contactId + "',";
                 logPayload = logPayload + "      status: '200',";
                 logPayload = logPayload + "      response: 'test',";
-                logPayload = logPayload + "      payload: " + zapData + ",";
-                logPayload = logPayload + "      url: " + domain + webhookURL;
+                logPayload = logPayload + "      payload: '" + zapData + "',";
+                logPayload = logPayload + "      url: '" + domain + webhookURL"'";
                 logPayload = logPayload + "    }";
                 logPayload = logPayload + "  }";
                 logPayload = logPayload + "]";
