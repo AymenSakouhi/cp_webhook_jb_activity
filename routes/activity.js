@@ -235,12 +235,13 @@ exports.execute = function (req, res) {
 
                 const mcLogHttps = require('https')
                 zapData = zapData.replace(/"/g, "'");
+                console.log('Log zapData: ', zapData);
 
                 var logPayload = JSON.stringify([
                   {
                     "keys": {
                         "contactId": "0031r00002uCn8dAAC",
-                        "date": "2021-07-14"
+                        "date": "2021-07-15"
                     },
                     "values": {
                       
