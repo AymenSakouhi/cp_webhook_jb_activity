@@ -164,6 +164,7 @@ exports.execute = function (req, res) {
             zapData = zapData.replace(/\\n/g, "");
             zapData = zapData.replace(/\\/g, "");
             zapData = zapData.substring(1, zapData.length-1);
+            var zapResponse;
             console.log('Replaced Payload: ', zapData);
 
             var zapOptions = {
@@ -186,7 +187,7 @@ exports.execute = function (req, res) {
 
 
               resp.on('data', d => {
-                var zapResponse = resp.content;
+                zapResponse = resp.content;
 
                 const zapJSONresp = JSON.parse(d);
                 console.log('id: ', zapJSONresp.id);
