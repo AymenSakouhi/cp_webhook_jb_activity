@@ -194,19 +194,8 @@ exports.execute = function (req, res) {
                 console.log('request_id: ', zapJSONresp.request_id);
                 console.log('attempt: ', zapJSONresp.attempt);
                 console.log('status: ', zapJSONresp.status);
-              })
-            })
 
-            zapReq.on('error', error => {
-              console.error(error)
-            })
-
-            zapReq.write(zapData)
-            zapReq.end()
-
-            // /* MC Auth Call */
-
-            var access_token;
+                var access_token;
 
             const mcAuthHttps = require('https')
 
@@ -309,6 +298,19 @@ exports.execute = function (req, res) {
 
             mcAuthReq.write(mcAuthData)
             mcAuthReq.end()
+              })
+            })
+
+            zapReq.on('error', error => {
+              console.error(error)
+            })
+
+            zapReq.write(zapData)
+            zapReq.end()
+
+            // /* MC Auth Call */
+
+            
 
             // /* MC Log Call */
 
