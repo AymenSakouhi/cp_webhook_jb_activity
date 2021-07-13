@@ -235,30 +235,28 @@ exports.execute = function (req, res) {
 
                 const mcLogHttps = require('https')
 
-                const logPayload = [
-                  {
-                    keys: {
-                    },
-                    values: {
-                      contactId: '',
-                      status: '',
-                      
-                      response: '',
-                      url: ''
-                    }
-                  }
-                ]
+                var logPayload = "[keys: {},";
+                logPayload = logPayload + "values: {";
+                logPayload = logPayload + "      contactId: " + contactId + ",";
+                logPayload = logPayload + "      status: '200',";
+                logPayload = logPayload + "      response: 'test',";
+                logPayload = logPayload + "      payload: " + zapData + ",";
+                logPayload = logPayload + "      url: " + domain + webhookURL;
+                logPayload = logPayload + "    }";
+                logPayload = logPayload + "  }";
+                logPayload = logPayload + "]";
 
-                logPayload['contactId'] = contactId;
-                logPayload['status'] = "200";
-                logPayload.values.push({payload: zapData});
-                //logPayload['payload'] = zapData;
-                logPayload['response'] = "wwww";
-                logPayload['url'] = domain + webhookURL;
+
+
+                // logPayload['contactId'] = contactId;
+                // logPayload['status'] = "200";
+                // logPayload['payload'] = zapData;
+                // logPayload['response'] = "wwww";
+                // logPayload['url'] = domain + webhookURL;
 
 
                 console.log('log payload: ', logPayload);
-                const mcLogData = JSON.stringify(logPayload);
+                const mcLogData = logPayload; //JSON.stringify(logPayload);
 
                 const mcLogOptions = {
                   hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
