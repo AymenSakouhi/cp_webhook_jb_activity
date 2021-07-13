@@ -248,8 +248,8 @@ exports.execute = function (req, res) {
                       
                       "status": "undefined",
                       "payload": + zapData,
-                      "response": "undefined",
-                      "url": "hooks.zapier.com/hooks/catch/9270658/boao9sj/"
+                      "response": + zapResponse,
+                      "url": domain + webhookURL
                     }
                   }
                 ]);
