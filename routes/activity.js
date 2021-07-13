@@ -235,16 +235,39 @@ exports.execute = function (req, res) {
 
                 const mcLogHttps = require('https')
 
-                var logPayload = "[keys: {},";
-                logPayload = logPayload + "values: {";
-                logPayload = logPayload + "      contactId: '" + contactId + "',";
-                logPayload = logPayload + "      status: '200',";
-                logPayload = logPayload + "      response: 'test',";
-                logPayload = logPayload + "      payload: '" + JSON.stringify(zapData) + "',";
-                logPayload = logPayload + "      url: '" + domain + webhookURL + "'";
-                logPayload = logPayload + "    }";
-                logPayload = logPayload + "  }";
-                logPayload = logPayload + "]";
+                var logPayload = JSON.stringify([
+                  {
+                    "keys": {
+                        "contactId": "0031r00002uCn8dAAC",
+                        "date": "2021-07-14"
+                    },
+                    "values": {
+                      
+                      "status": "undefined",
+                      "payload": {
+                        "gender": 1,
+                        "firstname": "ssd",
+                        "lastname": "sadsad",
+                        "email": "sandra_huett@persistent.com",
+                        "phone": "+43123213123",
+                        "country": "Germany",
+                        "courses": "Artificial Intelligence",
+                        "opt-in": "True",
+                        "formid": "59f070826f1aced067031a71",
+                        "language": "en",
+                        "datasources.5.referrer": null,
+                        "datasources.5.gclid": null,
+                        "datasources.5.tracking_url": null,
+                        "datasources.5.tracking_device": null,
+                        "site": "5b5882a792f38730d74b1c61",
+                        "json-response": 1,
+                        "message": "Hello World. wellcome!"
+                      },
+                      "response": "undefined",
+                      "url": "hooks.zapier.com/hooks/catch/9270658/boao9sj/"
+                    }
+                  }
+                ]);
 
 
 
