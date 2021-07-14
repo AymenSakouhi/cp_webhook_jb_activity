@@ -230,23 +230,34 @@ exports.execute = function (req, res) {
                     console.log('Log zapData: ', zapData);
                     var zapDatatest = JSON.stringify(zapData);
 
+                    // current timestamp in milliseconds
+                    let ts = Date.now();
+
+                    let date_ob = new Date(ts);
+                    let date = date_ob.getDate();
+                    let month = date_ob.getMonth() + 1;
+                    let year = date_ob.getFullYear();
+
+                    // prints date & time in YYYY-MM-DD format
+                    let fullDate = year + "-" + month + "-" + date;
+
                     var logPayload = [
                       {
                         "keys": {
-                            "contactId": "0031r00002uCn8dAAC",
-                            "date": "2021-07-15"
+                            "contactId": contactId,
+                            "date": fullDate
                         },
                         "values": {
                           
-                          "status": "undefined",
+                          "status": statusCode,
                           "payload": zapData,
-                          "response": zapDatatest,
+                          "response": zapResponse,
                           "url": domain + webhookURL
                         }
                       }
                     ];
 
-                    logPayload['payload'] = zapData;
+                    //logPayload['payload'] = zapData;
 
 
                     console.log('log payload: ', logPayload);
