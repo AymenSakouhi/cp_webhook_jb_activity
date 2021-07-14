@@ -227,8 +227,9 @@ exports.execute = function (req, res) {
 
                     const mcLogHttps = require('https')
                     zapData = zapData.replace(/"/g, "'");
+                    zapResponse = JSON.stringify(zapResponse);
+                    zapResponse = zapResponse.replace(/"/g, "'");
                     console.log('Log zapData: ', zapData);
-                    var zapDatatest = JSON.stringify(zapData);
 
                     let date_ob = new Date();
                     let date = ("0" + date_ob.getDate()).slice(-2);
