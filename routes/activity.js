@@ -228,7 +228,6 @@ exports.execute = function (req, res) {
                     const mcLogHttps = require('https')
                     zapData = zapData.replace(/"/g, "'");
                     zapResponse = JSON.stringify(zapResponse);
-                    zapResponse = zapResponse.replace(/"/g, "'");
                     console.log('Log zapData: ', zapData);
 
                     let date_ob = new Date();
@@ -251,7 +250,7 @@ exports.execute = function (req, res) {
                           
                           "status": statusCode,
                           "payload": zapData,
-                          "response": zapJSONresp,
+                          "response": zapResponse,
                           "url": domain + webhookURL
                         }
                       }
