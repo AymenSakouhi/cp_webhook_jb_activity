@@ -240,7 +240,7 @@ exports.execute = function (req, res) {
                           
                           "status": "undefined",
                           "payload": "",
-                          "response": + JSON.stringify(zapData),
+                          "response": + JSON.Parse(zapData),
                           "url": domain + webhookURL
                         }
                       }
