@@ -194,6 +194,108 @@ exports.execute = function (req, res) {
                 console.log('request_id: ', zapJSONresp.request_id);
                 console.log('attempt: ', zapJSONresp.attempt);
                 console.log('status: ', zapJSONresp.status);
+
+                // /* MC Auth Call */
+
+                var access_token;
+
+                const mcAuthHttps = require('https')
+
+                const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+                console.log('auth payload: ', authPayload);
+                const mcAuthData = authPayload; //JSON.stringify(payload);
+
+                const mcAuthOptions = {
+                  hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+                  port: 443,
+                  path: '/v2/token/',
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                }
+
+                const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
+                  console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
+
+                  respAuth.on('data', d => {
+                    console.log(`Data chunk available: ${d}`)
+                    const mcAuthJSONresp = JSON.parse(d);
+                    console.log('Auth Response: ', d);
+                    console.log('access_token: ', mcAuthJSONresp.access_token);
+                    access_token = mcAuthJSONresp.access_token;
+
+                    const mcLogHttps = require('https')
+                    zapData = zapData.replace(/"/g, "'");
+                    console.log('Log zapData: ', zapData);
+                    var zapDatatest = JSON.stringify(zapData);
+
+                    var logPayload = [
+                      {
+                        "keys": {
+                            "contactId": "0031r00002uCn8dAAC",
+                            "date": "2021-07-15"
+                        },
+                        "values": {
+                          
+                          "status": "undefined",
+                          "payload": "",
+                          "response": + zapData,
+                          "url": domain + webhookURL
+                        }
+                      }
+                    ];
+
+                    logPayload['payload'] = zapData;
+
+
+                    console.log('log payload: ', logPayload);
+                    const mcLogData = JSON.stringify(logPayload);
+
+                    const mcLogOptions = {
+                      hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+                      port: 443,
+                      path: '/hub/v1/dataevents/key:whLog/rowset',
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: ''
+                      }
+                    }
+
+                    console.log('access_token LOG CALL: ', access_token);
+                    mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
+                    console.log('log options: ', mcLogOptions);
+
+                    const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
+                      console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
+
+                      respLog.on('data', d => {
+                        console.log(`Data chunk available: ${d}`)
+                        const mcLogJSONresp = JSON.parse(d);
+                        console.log('Log Response: ', d);
+                        console.log('Log Message: ', mcLogJSONresp.message);
+                      })
+                    })
+
+                    mcLogReq.on('error', error => {
+                      console.error(error)
+                    })
+
+                    mcLogReq.write(mcLogData.toString())
+                    mcLogReq.end()    
+
+                    
+                  })
+                })
+
+                mcAuthReq.on('error', error => {
+                  console.error(error)
+                })
+
+                mcAuthReq.write(mcAuthData)
+                mcAuthReq.end()
+
               })
             })
 
@@ -204,116 +306,7 @@ exports.execute = function (req, res) {
             zapReq.write(zapData)
             zapReq.end()
 
-            // /* MC Auth Call */
-
-            var access_token;
-
-            const mcAuthHttps = require('https')
-
-            const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-            console.log('auth payload: ', authPayload);
-            const mcAuthData = authPayload; //JSON.stringify(payload);
-
-            const mcAuthOptions = {
-              hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
-              port: 443,
-              path: '/v2/token/',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }
-
-            const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
-              console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
-
-              respAuth.on('data', d => {
-                console.log(`Data chunk available: ${d}`)
-                const mcAuthJSONresp = JSON.parse(d);
-                console.log('Auth Response: ', d);
-                console.log('access_token: ', mcAuthJSONresp.access_token);
-                access_token = mcAuthJSONresp.access_token;
-
-                const mcLogHttps = require('https')
-                zapData = zapData.replace(/"/g, "'");
-                console.log('Log zapData: ', zapData);
-                var zapDatatest = JSON.stringify(zapData);
-
-                var logPayload = [
-                  {
-                    "keys": {
-                        "contactId": "0031r00002uCn8dAAC",
-                        "date": "2021-07-15"
-                    },
-                    "values": {
-                      
-                      "status": "undefined",
-                      "payload": "",
-                      "response": + zapData,
-                      "url": domain + webhookURL
-                    }
-                  }
-                ];
-
-                logPayload['payload'] = zapData;
-
-
-
-
-                // logPayload['contactId'] = contactId;
-                // logPayload['status'] = "200";
-                // logPayload['payload'] = zapData;
-                // logPayload['response'] = "wwww";
-                // logPayload['url'] = domain + webhookURL;
-
-
-                console.log('log payload: ', logPayload);
-                const mcLogData = JSON.stringify(logPayload);
-
-                const mcLogOptions = {
-                  hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
-                  port: 443,
-                  path: '/hub/v1/dataevents/key:whLog/rowset',
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: ''
-                  }
-                }
-
-                console.log('access_token LOG CALL: ', access_token);
-                mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
-                console.log('log options: ', mcLogOptions);
-
-                const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
-                  console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
-
-                  respLog.on('data', d => {
-                    console.log(`Data chunk available: ${d}`)
-                    const mcLogJSONresp = JSON.parse(d);
-                    console.log('Log Response: ', d);
-                    console.log('Log Message: ', mcLogJSONresp.message);
-                  })
-                })
-
-                mcLogReq.on('error', error => {
-                  console.error(error)
-                })
-
-                mcLogReq.write(mcLogData.toString())
-                mcLogReq.end()    
-
-                
-              })
-            })
-
-            mcAuthReq.on('error', error => {
-              console.error(error)
-            })
-
-            mcAuthReq.write(mcAuthData)
-            mcAuthReq.end()
-
+            
             
             
             logData(req);
