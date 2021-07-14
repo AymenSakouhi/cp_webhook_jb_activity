@@ -230,16 +230,15 @@ exports.execute = function (req, res) {
                     console.log('Log zapData: ', zapData);
                     var zapDatatest = JSON.stringify(zapData);
 
-                    // current timestamp in milliseconds
-                    let ts = Date.now();
-
-                    let date_ob = new Date(ts);
-                    let date = date_ob.getDate();
-                    let month = date_ob.getMonth() + 1;
+                    let date_ob = new Date();
+                    let date = ("0" + date_ob.getDate()).slice(-2);
+                    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
                     let year = date_ob.getFullYear();
+                    let hours = date_ob.getHours();
+                    let minutes = date_ob.getMinutes();
+                    let seconds = date_ob.getSeconds();
 
-                    // prints date & time in YYYY-MM-DD format
-                    let fullDate = year + "-" + month + "-" + date;
+                    let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
                     var logPayload = [
                       {
