@@ -239,8 +239,8 @@ exports.execute = function (req, res) {
                         "values": {
                           
                           "status": "undefined",
-                          "payload": "",
-                          "response": + JSON.parse(zapData),
+                          "payload": zapData,
+                          "response": zapDatatest,
                           "url": domain + webhookURL
                         }
                       }
