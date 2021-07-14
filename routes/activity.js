@@ -186,13 +186,14 @@ exports.execute = function (req, res) {
 
 
               resp.on('data', d => {
-                zapResponse = d;
-                console.log('zapResponse: ', zapResponse);
+
                 const zapJSONresp = JSON.parse(d);
                 console.log('id: ', zapJSONresp.id);
                 console.log('request_id: ', zapJSONresp.request_id);
                 console.log('attempt: ', zapJSONresp.attempt);
                 console.log('status: ', zapJSONresp.status);
+                zapResponse = JSON.stringify(zapJSONresp);
+                console.log('zapResponse: ', zapResponse);
 
                 // /* MC Auth Call */
 
