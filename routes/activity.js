@@ -250,14 +250,11 @@ exports.execute = function (req, res) {
                           
                           "status": statusCode,
                           "payload": zapData,
-                          "response": zapResponse,
+                          "response": zapJSONresp,
                           "url": domain + webhookURL
                         }
                       }
                     ];
-
-                    //logPayload['payload'] = zapData;
-
 
                     console.log('log payload: ', logPayload);
                     const mcLogData = JSON.stringify(logPayload);
@@ -283,8 +280,8 @@ exports.execute = function (req, res) {
                       respLog.on('data', d => {
                         console.log(`Data chunk available: ${d}`)
                         const mcLogJSONresp = JSON.parse(d);
-                        console.log('Log Response: ', d);
-                        console.log('Log Message: ', mcLogJSONresp.message);
+                        console.log('Log Response: ', respLog.statusCode);
+                        console.log('Log Message: ', respLog.content);
                       })
                     })
 
