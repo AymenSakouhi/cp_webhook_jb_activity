@@ -159,7 +159,7 @@ exports.execute = function (req, res) {
             const zapHttps = require('https')
             var statusCode;
 
-            var zapData = JSON.stringify(contentJSON)
+            var zapData = contentJSON;
             zapData = zapData.replace(/\\n/g, "");
             zapData = zapData.replace(/\\/g, "");
             zapData = zapData.substring(1, zapData.length-1);
