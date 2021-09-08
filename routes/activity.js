@@ -7,7 +7,7 @@ const JWT = require(Path.join(__dirname, '..', 'lib', 'jwtDecoder.js'));
 var util = require('util');
 var http = require('https');
 
-console.log( 'TEST LOAD ACTIVITY' );
+console.log( 'LOAD ACTIVITY.JS' );
 
 exports.logExecuteData = [];
 
@@ -56,7 +56,7 @@ function logData(req) {
 exports.edit = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     //console.log( req.body );
-    logData(req);
+    //logData(req);
     res.send(200, 'Edit');
 };
 
@@ -65,8 +65,8 @@ exports.edit = function (req, res) {
  */
 exports.save = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
-    console.log( req.body );
-    console.log( 'TEST SAVE' );
+    //console.log( req.body );
+    //console.log( 'TEST SAVE' );
 
     //logData(req);
     res.send(200, 'Save');
@@ -77,7 +77,7 @@ exports.save = function (req, res) {
  */
 exports.execute = function (req, res) {
 
-     console.log( 'Call activity.js' );
+    console.log( 'EXECUTE' );
 
     // example on how to decode JWT
     JWT(req.body, process.env.jwtSecret, (err, decoded) => {
@@ -93,15 +93,15 @@ exports.execute = function (req, res) {
             
             // decoded in arguments
             var decodedArgs = decoded.inArguments[0];
-            console.log('decoded in arguments: ', decoded.inArguments.length);
+            //console.log('decoded in arguments: ', decoded.inArguments.length);
 
             for(var i = 0; i < decoded.inArguments.length;i++){
                 console.log('arg ', i , ':', decoded.inArguments[i]);
             }
 
-            console.log('inArguments: ', decoded.inArguments);
-            console.log('inURL: ', decoded.inArguments[1].url);
-            console.log('inPayload: ', decoded.inArguments[2].contentJSON);
+            // console.log('inArguments: ', decoded.inArguments);
+            // console.log('inURL: ', decoded.inArguments[1].url);
+            // console.log('inPayload: ', decoded.inArguments[2].contentJSON);
 
             var webhookURL = decoded.inArguments[1].url;
             var contentJSON = decoded.inArguments[2].contentJSON;
@@ -153,7 +153,7 @@ exports.execute = function (req, res) {
             var journeyName = decoded.inArguments[27].journeyName;
 
 
-            console.log('outPayload: ', contentJSON);
+            //console.log('outPayload: ', contentJSON);
 
             /* Webhook API Call */
 
@@ -179,7 +179,7 @@ exports.execute = function (req, res) {
 
             zapOptions['path'] = webhookURL;
             zapOptions['hostname'] = domain;
-            console.log('Webhook Options: ', zapOptions)
+            //console.log('Webhook Options: ', zapOptions)
 
             const zapReq = zapHttps.request(zapOptions, resp => {
               console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
@@ -189,12 +189,12 @@ exports.execute = function (req, res) {
               resp.on('data', d => {
 
                 const zapJSONresp = JSON.parse(d);
-                console.log('id: ', zapJSONresp.id);
-                console.log('request_id: ', zapJSONresp.request_id);
-                console.log('attempt: ', zapJSONresp.attempt);
-                console.log('status: ', zapJSONresp.status);
+                // console.log('id: ', zapJSONresp.id);
+                // console.log('request_id: ', zapJSONresp.request_id);
+                // console.log('attempt: ', zapJSONresp.attempt);
+                // console.log('status: ', zapJSONresp.status);
                 zapResponse = JSON.stringify(zapJSONresp);
-                console.log('zapResponse: ', zapResponse);
+                //console.log('zapResponse: ', zapResponse);
 
                 // /* MC Auth Call */
 
@@ -203,7 +203,7 @@ exports.execute = function (req, res) {
                 const mcAuthHttps = require('https')
 
                 const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-                console.log('auth payload: ', authPayload);
+                //console.log('auth payload: ', authPayload);
                 const mcAuthData = authPayload; //JSON.stringify(payload);
 
                 const mcAuthOptions = {
@@ -223,13 +223,13 @@ exports.execute = function (req, res) {
                     console.log(`Data chunk available: ${d}`)
                     const mcAuthJSONresp = JSON.parse(d);
                     console.log('Auth Response: ', d);
-                    console.log('access_token: ', mcAuthJSONresp.access_token);
+                    //console.log('access_token: ', mcAuthJSONresp.access_token);
                     access_token = mcAuthJSONresp.access_token;
 
                     const mcLogHttps = require('https')
                     zapData = zapData.replace(/"/g, "'");
                     zapResponse = JSON.stringify(zapResponse);
-                    console.log('Log zapData: ', zapData);
+                    //console.log('Log zapData: ', zapData);
 
                     let date_ob = new Date();
                     let date = ("0" + date_ob.getDate()).slice(-2);
@@ -241,7 +241,8 @@ exports.execute = function (req, res) {
 
                     let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-                    var zapJSON = JSON.parse(zapData);
+                    var zapJSON = zapData.replace(/'/g, "");
+                    zapJSON = JSON.parse(zapJSON);
 
                     var logPayload = [
                       {
@@ -268,7 +269,7 @@ exports.execute = function (req, res) {
                       }
                     ];
 
-                    console.log('log payload: ', logPayload);
+                    console.log('LOG PAYLOAD: ', logPayload);
                     const mcLogData = JSON.stringify(logPayload);
 
                     const mcLogOptions = {
@@ -282,15 +283,15 @@ exports.execute = function (req, res) {
                       }
                     }
 
-                    console.log('access_token LOG CALL: ', access_token);
+                    //console.log('access_token LOG CALL: ', access_token);
                     mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
-                    console.log('log options: ', mcLogOptions);
+                    //console.log('log options: ', mcLogOptions);
 
                     const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
                       console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
 
                       respLog.on('data', d => {
-                        console.log(`Data chunk available: ${d}`)
+                        //console.log(`Data chunk available: ${d}`)
                         const mcLogJSONresp = JSON.parse(d);
                         console.log('Log Response: ', respLog.statusCode);
                         console.log('Log Message: ', respLog.content);
@@ -353,8 +354,8 @@ exports.publish = function (req, res) {
  */
 exports.validate = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
-    console.log( req.body );
-    console.log( 'TEST VALIDATE' );
+    //console.log( req.body );
+    //console.log( 'TEST VALIDATE' );
 
     
 
