@@ -193,7 +193,7 @@ exports.execute = function (req, res) {
                 // console.log('request_id: ', zapJSONresp.request_id);
                 // console.log('attempt: ', zapJSONresp.attempt);
                 // console.log('status: ', zapJSONresp.status);
-                // zapResponse = JSON.stringify(zapJSONresp);
+                zapResponse = JSON.stringify(zapJSONresp);
                 //console.log('zapResponse: ', zapResponse);
 
                 // /* MC Auth Call */
@@ -253,7 +253,7 @@ exports.execute = function (req, res) {
                           
                           "status": statusCode,
                           "payload": zapData,
-                          "response": zapJSONresp,
+                          "response": zapResponse,
                           "url": domain + webhookURL,
                           "gender": salutation,
                           "firstName": firstName,
