@@ -150,6 +150,7 @@ exports.execute = function (req, res) {
             var contactId = decoded.inArguments[25].contactId;
             contentJSON = contentJSON.replace(/@contactId/g, contactId);
             var domain = decoded.inArguments[26].domain;
+            var journeyName = decoded.inArguments[26].journeyName;
 
 
             console.log('outPayload: ', contentJSON);
@@ -260,7 +261,7 @@ exports.execute = function (req, res) {
                           "opt-in": optIn,
                           "message": 'testmessage',
                           "programFamily": programFamily,
-                          "journeyName": 'testjourney'
+                          "journeyName": journeyName
                         }
                       }
                     ];

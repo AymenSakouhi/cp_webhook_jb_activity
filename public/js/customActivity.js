@@ -10,6 +10,7 @@ define([
     var payload = {};
     var eventDefinitionKey;
     var entryObject;
+    var journeyName;
 
     console.log( 'Call customActivity.js' );
 
@@ -57,6 +58,7 @@ define([
         console.log('*** requestedInteraction ***');
         eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
         entryObject = interaction.triggers[0].configurationArguments.objectAPIName;
+        journeyName = interaction.name;
         console.log(JSON.stringify(interaction));
         console.log(eventDefinitionKey);
         console.log(entryObject);
@@ -227,6 +229,7 @@ define([
             {
                 "EntryObject": entryObject,
             },
+            
             {
                 "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
             },
@@ -253,6 +256,9 @@ define([
             { "studyAdvisor": "{{Event."+ eventDefinitionKey + ".\"" + studyAdvisor + "\"}}" },
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
+            {
+                "journeyName": journeyName,
+            },
         ];
         
         payload['metaData'].isConfigured = true;
