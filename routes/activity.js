@@ -251,7 +251,16 @@ exports.execute = function (req, res) {
                           "status": statusCode,
                           "payload": zapData,
                           "response": zapResponse,
-                          "url": domain + webhookURL
+                          "url": domain + webhookURL,
+                          "gender": salutation,
+                          "firstName": firstName,
+                          "email": email,
+                          "phone": phone,
+                          "country": country,
+                          "opt-in": optIn,
+                          "message": 'testmessage',
+                          "programFamily": programFamily,
+                          "journeyName": 'testjourney'
                         }
                       }
                     ];
