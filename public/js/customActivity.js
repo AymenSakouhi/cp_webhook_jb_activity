@@ -256,9 +256,7 @@ define([
             { "studyAdvisor": "{{Event."+ eventDefinitionKey + ".\"" + studyAdvisor + "\"}}" },
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
-            {
-                "journeyName": journeyName,
-            },
+            { "journeyName": journeyName },
         ];
         
         payload['metaData'].isConfigured = true;
