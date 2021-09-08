@@ -227,7 +227,7 @@ exports.execute = function (req, res) {
                     access_token = mcAuthJSONresp.access_token;
 
                     const mcLogHttps = require('https')
-                    zapData = zapData.replace(/"/g, "'");
+                    //zapData = zapData.replace(/"/g, "'");
                     zapResponse = JSON.stringify(zapResponse);
                     //console.log('Log zapData: ', zapData);
 
