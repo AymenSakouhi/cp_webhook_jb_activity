@@ -241,6 +241,8 @@ exports.execute = function (req, res) {
 
                     let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
+                    var zapJSON = JSON.parse(zapData);
+
                     var logPayload = [
                       {
                         "keys": {
@@ -259,7 +261,7 @@ exports.execute = function (req, res) {
                           "phone": phone,
                           "country": country,
                           "opt-in": optIn,
-                          "message": 'testmessage',
+                          "message": zapJSON.message,
                           "programFamily": programFamily,
                           "journeyName": journeyName
                         }
