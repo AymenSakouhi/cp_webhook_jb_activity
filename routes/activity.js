@@ -241,8 +241,7 @@ exports.execute = function (req, res) {
 
                     let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-                    var zapJSON = zapData.replace(/'/g, '"');
-                    zapJSON = JSON.parse(zapJSON);
+                    var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
 
                     var logPayload = [
                       {
