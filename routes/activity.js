@@ -161,9 +161,9 @@ exports.execute = function (req, res) {
             var statusCode;
 
             var zapData = contentJSON;
-            zapData = zapData.replace(/\\n/g, "");
-            zapData = zapData.replace(/\\/g, "");
-            zapData = zapData.substring(1, zapData.length-1);
+            // zapData = zapData.replace(/\\n/g, "");
+            // zapData = zapData.replace(/\\/g, "");
+            // zapData = zapData.substring(1, zapData.length-1);
             var zapResponse;
             console.log('Replaced Payload: ', zapData);
 
