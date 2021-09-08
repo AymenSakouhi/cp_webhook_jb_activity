@@ -150,7 +150,7 @@ exports.execute = function (req, res) {
             var contactId = decoded.inArguments[25].contactId;
             contentJSON = contentJSON.replace(/@contactId/g, contactId);
             var domain = decoded.inArguments[26].domain;
-            var journeyName = decoded.inArguments[26].journeyName;
+            var journeyName = decoded.inArguments[27].journeyName;
 
 
             console.log('outPayload: ', contentJSON);
