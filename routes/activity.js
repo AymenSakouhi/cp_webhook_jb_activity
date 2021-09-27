@@ -89,7 +89,7 @@ exports.execute = function (req, res) {
             return res.status(401).end();
         }
 
-        console.log( 'DECODED ' + stringify(decoded) );
+
         if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
             
             // decoded in arguments
@@ -364,6 +364,7 @@ exports.validate = function (req, res) {
             console.error(err);
             return res.status(401).end();
         }
+        console.log( 'DECODED ' + stringify(decoded) );
 
         if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
             
