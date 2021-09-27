@@ -355,16 +355,46 @@ exports.validate = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
     console.log( 'TEST VALIDATE' );
-
-    
-
-    /* MC Auth Call */
-
-    
+    JWT(req.body, process.env.jwtSecret, (err, decoded) => {
 
 
+        // verification error -> unauthorized request
+        if (err) {
+            console.error(err);
+            return res.status(401).end();
+        }
 
-    //logData(req);
-    res.send(200, 'Validate');
+        if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+            
+            // decoded in arguments
+            var decodedArgs = decoded.inArguments[0];
+            //console.log('decoded in arguments: ', decoded.inArguments.length);
+
+            for(var i = 0; i < decoded.inArguments.length;i++){
+                console.log('val arg ', i , ':', decoded.inArguments[i]);
+            }
+
+            // console.log('inArguments: ', decoded.inArguments);
+            // console.log('inURL: ', decoded.inArguments[1].url);
+            // console.log('inPayload: ', decoded.inArguments[2].contentJSON);
+
+            
+            var edk = decoded.inArguments[28].edk;
+
+            console.log( 'VALIDATION EDK' + edk);
+
+            if (edk !== "undefined") {
+              res.send(200, 'Validate');
+            } else {
+              console.error('no entry event defined');
+              return res.status(400).end('No Entry Event');
+            }
+            
+        } else {
+            console.error('inArguments invalid.');
+            return res.status(400).end();
+        }
+    });
+
 };
 
