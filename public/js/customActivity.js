@@ -285,7 +285,7 @@ define([
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
             { "journeyName": journeyName },
-            { "edk": eventDefinitionKey },
+            { "edk": entryTitle },
 
 
         ];
