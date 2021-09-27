@@ -98,7 +98,7 @@ exports.execute = function (req, res) {
             console.log('arg ', i , ':', decoded.inArguments[i]);
         }
 
-        console.log ('decodedArgs2: ' + JSON.stringify(decoded);
+        console.log ('decodedArgs2: ' + JSON.stringify(decoded));
         console.log('Check undefined: ' + JSON.stringify(decoded).includes("undefined"));
 
         if (JSON.stringify(decoded.inArguments[0]).includes("undefined") == false) {
