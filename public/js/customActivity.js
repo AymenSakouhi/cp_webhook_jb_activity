@@ -241,7 +241,7 @@ define([
         }
         payload.name = name;
 
-        
+
 
         payload['arguments'].execute.inArguments = [
             {
@@ -287,7 +287,8 @@ define([
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
             { "journeyName": journeyName },
-            { "edk": entryTitle },
+            { "edk": eventDefinitionKey },
+            { "entryTitle": entryTitle },
 
 
         ];
