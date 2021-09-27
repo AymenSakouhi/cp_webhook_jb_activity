@@ -11,6 +11,7 @@ define([
     var eventDefinitionKey;
     var entryObject;
     var journeyName;
+    var entryTitle;
 
     console.log( 'Call customActivity.js' );
 
@@ -58,10 +59,12 @@ define([
         console.log('*** requestedInteraction ***');
         eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
         entryObject = interaction.triggers[0].configurationArguments.objectAPIName;
+        entryTitle = interaction.triggers[0].metaData.title;
         journeyName = interaction.name;
         console.log(JSON.stringify(interaction));
-        console.log(eventDefinitionKey);
-        console.log(entryObject);
+        console.log('EDK: ' + eventDefinitionKey);
+        console.log('EO' + entryObject);
+        console.log('ET' + entryTitle);
      }
 
      function onRequestedTriggerEventDefinition(eventDefinitionModel) {
@@ -158,7 +161,9 @@ define([
         var studyAdvisor;
         var phone;
 
-
+        if (entryTitle == 'Data Extension') {
+            entryObject = 'DE';
+        }
 
         switch(entryObject)
         {
@@ -188,6 +193,29 @@ define([
         case 'OpportunityArchive__c':
           firstName = 'OpportunityArchive__c:Account__r:FirstName'
           break;
+        case 'DE':
+            firstName = 'First Name';
+            lastName = 'Last Name';
+            accountId = 'Opportunity:Account:Id';
+            opportunityId = 'Opportunity ID';
+            stageName = 'Stage';
+            programFamily = 'Program Family';
+            cpAccountId = 'Opportunity:Account:CP_Account_ID__c';
+            salutation = 'Opportunity:Account:Salutation';
+            productName = 'Course Of Study Lookup: Product Display Name';
+            productFamily = 'Opportunity:CourseOfStudyLookup__r:Family';
+            productId = 'Opportunity:CourseOfStudyLookup__r:Id';
+            degree = 'Degree_old';
+            createdDate = 'Opportunity:CreatedDate';
+            optIn = 'Opportunity:Account:OptInEmail__c';
+            country = 'Country';
+            voucher = 'Opportunity:VoucherID__c';
+            workExperience = 'Opportunity:WorkExperience__c';
+            budget = 'Opportunity:BudgetPerMonth__c';
+            rate = 'Opportunity:RatePerInterval__c';
+            studyAdvisor = 'Opportunity:StudyAdvisor__c';
+            phone = 'Opportunity:Account:Phone';
+            break;
         default:
             firstName = 'Opportunity:Account:FirstName';
             lastName = 'Opportunity:Account:LastName';
@@ -257,6 +285,7 @@ define([
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
             { "journeyName": journeyName },
+            { "edk": eventDefinitionKey },
         ];
         
         payload['metaData'].isConfigured = true;
