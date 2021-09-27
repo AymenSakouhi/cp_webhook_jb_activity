@@ -336,119 +336,120 @@ exports.execute = function (req, res) {
 
           else {
 
-          //   var access_token;
+            var access_token;
 
-          //     const mcAuthHttps = require('https')
+              const mcAuthHttps = require('https')
 
-          //     const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-          //     //console.log('auth payload: ', authPayload);
-          //     const mcAuthData = authPayload; //JSON.stringify(payload);
+              const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+              //console.log('auth payload: ', authPayload);
+              const mcAuthData = authPayload; //JSON.stringify(payload);
 
-          //     const mcAuthOptions = {
-          //       hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
-          //       port: 443,
-          //       path: '/v2/token/',
-          //       method: 'POST',
-          //       headers: {
-          //         'Content-Type': 'application/json'
-          //       }
-          //     }
+              const mcAuthOptions = {
+                hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+                port: 443,
+                path: '/v2/token/',
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
 
-          //     const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
-          //       console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
+              const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
+                console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
 
-          //       respAuth.on('data', d => {
-          //         console.log(`Data chunk available: ${d}`)
-          //         const mcAuthJSONresp = JSON.parse(d);
-          //         console.log('Auth Response: ', d);
-          //         //console.log('access_token: ', mcAuthJSONresp.access_token);
-          //         access_token = mcAuthJSONresp.access_token;
+                respAuth.on('data', d => {
+                  console.log(`Data chunk available: ${d}`)
+                  const mcAuthJSONresp = JSON.parse(d);
+                  console.log('Auth Response: ', d);
+                  //console.log('access_token: ', mcAuthJSONresp.access_token);
+                  access_token = mcAuthJSONresp.access_token;
 
-          //         const mcLogHttps = require('https')
+                  const mcLogHttps = require('https')
 
-          //         let date_ob = new Date();
-          //         let date = ("0" + date_ob.getDate()).slice(-2);
-          //         let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-          //         let year = date_ob.getFullYear();
-          //         let hours = date_ob.getHours() + 2;
-          //         let minutes = date_ob.getMinutes();
-          //         let seconds = date_ob.getSeconds();
+                  let date_ob = new Date();
+                  let date = ("0" + date_ob.getDate()).slice(-2);
+                  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                  let year = date_ob.getFullYear();
+                  let hours = date_ob.getHours() + 2;
+                  let minutes = date_ob.getMinutes();
+                  let seconds = date_ob.getSeconds();
 
-          //         let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+                  let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+                  var zapData = contentJSON;
+                  
+                  var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
 
-          //         var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
-
-          //         var logPayload = [
-          //           {
-          //             "keys": {
-          //                 "contactId": contactId,
-          //                 "date": fullDate
-          //             },
-          //             "values": {
+                  var logPayload = [
+                    {
+                      "keys": {
+                          "contactId": contactId,
+                          "date": fullDate
+                      },
+                      "values": {
                         
-          //               "status": "400",
-          //               "payload": zapData,
-          //               "response": "undefined Entry",
-          //               "url": domain + webhookURL,
-          //               "gender": salutation,
-          //               "firstName": firstName,
-          //               "email": email,
-          //               "phone": phone,
-          //               "country": country,
-          //               "opt-in": optIn,
-          //               "message": zapJSON.message,
-          //               "programFamily": programFamily,
-          //               "journeyName": journeyName
-          //             }
-          //           }
-          //         ];
+                        "status": "400",
+                        "payload": zapData,
+                        "response": "undefined Entry",
+                        "url": domain + webhookURL,
+                        "gender": salutation,
+                        "firstName": firstName,
+                        "email": email,
+                        "phone": phone,
+                        "country": country,
+                        "opt-in": optIn,
+                        "message": zapJSON.message,
+                        "programFamily": programFamily,
+                        "journeyName": journeyName
+                      }
+                    }
+                  ];
 
-          //         console.log('LOG PAYLOAD: ', logPayload);
-          //         const mcLogData = JSON.stringify(logPayload);
+                  console.log('LOG PAYLOAD: ', logPayload);
+                  const mcLogData = JSON.stringify(logPayload);
 
-          //         const mcLogOptions = {
-          //           hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
-          //           port: 443,
-          //           path: '/hub/v1/dataevents/key:whLog/rowset',
-          //           method: 'POST',
-          //           headers: {
-          //             'Content-Type': 'application/json',
-          //             Authorization: ''
-          //           }
-          //         }
+                  const mcLogOptions = {
+                    hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+                    port: 443,
+                    path: '/hub/v1/dataevents/key:whLog/rowset',
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: ''
+                    }
+                  }
 
-          //         //console.log('access_token LOG CALL: ', access_token);
-          //         mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
-          //         //console.log('log options: ', mcLogOptions);
+                  //console.log('access_token LOG CALL: ', access_token);
+                  mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
+                  //console.log('log options: ', mcLogOptions);
 
-          //         const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
-          //           console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
+                  const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
+                    console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
 
-          //           respLog.on('data', d => {
-          //             //console.log(`Data chunk available: ${d}`)
-          //             const mcLogJSONresp = JSON.parse(d);
-          //             console.log('Log Response: ', respLog.statusCode);
-          //             console.log('Log Message: ', respLog.content);
-          //           })
-          //         })
+                    respLog.on('data', d => {
+                      //console.log(`Data chunk available: ${d}`)
+                      const mcLogJSONresp = JSON.parse(d);
+                      console.log('Log Response: ', respLog.statusCode);
+                      console.log('Log Message: ', respLog.content);
+                    })
+                  })
 
-          //         mcLogReq.on('error', error => {
-          //           console.error(error)
-          //         })
+                  mcLogReq.on('error', error => {
+                    console.error(error)
+                  })
 
-          //         mcLogReq.write(mcLogData.toString())
-          //         mcLogReq.end()    
+                  mcLogReq.write(mcLogData.toString())
+                  mcLogReq.end()    
 
                   
-          //       })
-          //     })
+                })
+              })
 
-          //     mcAuthReq.on('error', error => {
-          //       console.error(error)
-          //     })
+              mcAuthReq.on('error', error => {
+                console.error(error)
+              })
 
-          //     mcAuthReq.write(mcAuthData)
-          //     mcAuthReq.end()
+              mcAuthReq.write(mcAuthData)
+              mcAuthReq.end()
           }
           
           
