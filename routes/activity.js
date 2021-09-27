@@ -362,7 +362,14 @@ exports.validate = function (req, res) {
             console.error(err);
             return res.status(401).end();
         }
-        console.log( 'DECODED ' + Stringify(decoded) );
+        console.log( 'DECODED ' + decoded );
+        console.log('decoded in arguments: ', decoded.inArguments.length);
+
+            for(var i = 0; i < decoded.inArguments.length;i++){
+                console.log('arg ', i , ':', decoded.inArguments[i]);
+            }
+
+            
 
         if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
             
