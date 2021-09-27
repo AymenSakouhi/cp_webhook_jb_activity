@@ -95,12 +95,10 @@ exports.execute = function (req, res) {
         //console.log('decoded in arguments: ', decoded.inArguments.length);
 
         for(var i = 0; i < decoded.inArguments.length;i++){
-            console.log('arg ', i , ':', decoded.inArguments[i]);
+            //console.log('arg ', i , ':', decoded.inArguments[i]);
         }
 
-        var edk = decoded.inArguments[27].edk;
-
-        console.log ('edk: ' + edk);
+        
 
           // console.log('inArguments: ', decoded.inArguments);
           // console.log('inURL: ', decoded.inArguments[1].url);
@@ -161,175 +159,178 @@ exports.execute = function (req, res) {
 
           /* Webhook API Call */
 
-          if (edk !== "undefined") {
+          var edk = decoded.inArguments[28].edk;
 
-          const zapHttps = require('https')
-          var statusCode;
+          console.log ('edk: ' + edk);
 
-          var zapData = contentJSON;
-          // zapData = zapData.replace(/\\n/g, "");
-          // zapData = zapData.replace(/\\/g, "");
-          // zapData = zapData.substring(1, zapData.length-1);
-          var zapResponse;
-          console.log('Replaced Payload: ', zapData);
+          if (edk != "undefined") {
 
-          var zapOptions = {
-            hostname: '',
-            port: 443,
-            path: '',
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
+            const zapHttps = require('https')
+            var statusCode;
 
-          zapOptions['path'] = webhookURL;
-          zapOptions['hostname'] = domain;
-          //console.log('Webhook Options: ', zapOptions)
+            var zapData = contentJSON;
+            // zapData = zapData.replace(/\\n/g, "");
+            // zapData = zapData.replace(/\\/g, "");
+            // zapData = zapData.substring(1, zapData.length-1);
+            var zapResponse;
+            console.log('Replaced Payload: ', zapData);
 
-          const zapReq = zapHttps.request(zapOptions, resp => {
-            console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
-            var statusCode = resp.statusCode;
-
-
-            resp.on('data', d => {
-
-              const zapJSONresp = JSON.parse(d);
-              // console.log('id: ', zapJSONresp.id);
-              // console.log('request_id: ', zapJSONresp.request_id);
-              // console.log('attempt: ', zapJSONresp.attempt);
-              // console.log('status: ', zapJSONresp.status);
-              zapResponse = JSON.stringify(zapJSONresp);
-              //console.log('zapResponse: ', zapResponse);
-
-              // /* MC Auth Call */
-
-              var access_token;
-
-              const mcAuthHttps = require('https')
-
-              const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
-              //console.log('auth payload: ', authPayload);
-              const mcAuthData = authPayload; //JSON.stringify(payload);
-
-              const mcAuthOptions = {
-                hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
-                port: 443,
-                path: '/v2/token/',
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
+            var zapOptions = {
+              hostname: '',
+              port: 443,
+              path: '',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
               }
+            }
 
-              const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
-                console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
+            zapOptions['path'] = webhookURL;
+            zapOptions['hostname'] = domain;
+            //console.log('Webhook Options: ', zapOptions)
 
-                respAuth.on('data', d => {
-                  console.log(`Data chunk available: ${d}`)
-                  const mcAuthJSONresp = JSON.parse(d);
-                  console.log('Auth Response: ', d);
-                  //console.log('access_token: ', mcAuthJSONresp.access_token);
-                  access_token = mcAuthJSONresp.access_token;
+            const zapReq = zapHttps.request(zapOptions, resp => {
+              console.log(`EXECUTE Zapier Status: ${resp.statusCode}`)
+              var statusCode = resp.statusCode;
 
-                  const mcLogHttps = require('https')
-                  //zapData = zapData.replace(/"/g, "'");
-                  zapResponse = JSON.stringify(zapResponse);
-                  //console.log('Log zapData: ', zapData);
 
-                  let date_ob = new Date();
-                  let date = ("0" + date_ob.getDate()).slice(-2);
-                  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-                  let year = date_ob.getFullYear();
-                  let hours = date_ob.getHours() + 2;
-                  let minutes = date_ob.getMinutes();
-                  let seconds = date_ob.getSeconds();
+              resp.on('data', d => {
 
-                  let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+                const zapJSONresp = JSON.parse(d);
+                // console.log('id: ', zapJSONresp.id);
+                // console.log('request_id: ', zapJSONresp.request_id);
+                // console.log('attempt: ', zapJSONresp.attempt);
+                // console.log('status: ', zapJSONresp.status);
+                zapResponse = JSON.stringify(zapJSONresp);
+                //console.log('zapResponse: ', zapResponse);
 
-                  var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
+                // /* MC Auth Call */
 
-                  var logPayload = [
-                    {
-                      "keys": {
-                          "contactId": contactId,
-                          "date": fullDate
-                      },
-                      "values": {
-                        
-                        "status": statusCode,
-                        "payload": zapData,
-                        "response": zapResponse,
-                        "url": domain + webhookURL,
-                        "gender": salutation,
-                        "firstName": firstName,
-                        "email": email,
-                        "phone": phone,
-                        "country": country,
-                        "opt-in": optIn,
-                        "message": zapJSON.message,
-                        "programFamily": programFamily,
-                        "journeyName": journeyName
+                var access_token;
+
+                const mcAuthHttps = require('https')
+
+                const authPayload = '{"grant_type": "client_credentials","client_id": "5t02s8dmqrx39d98sbuvy8e8","client_secret": "tDkBpuJkty7JDiQSZyWhCumi", "scope": "data_extensions_read data_extensions_write"}';
+                //console.log('auth payload: ', authPayload);
+                const mcAuthData = authPayload; //JSON.stringify(payload);
+
+                const mcAuthOptions = {
+                  hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.auth.marketingcloudapis.com',
+                  port: 443,
+                  path: '/v2/token/',
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                }
+
+                const mcAuthReq = mcAuthHttps.request(mcAuthOptions, respAuth => {
+                  console.log(`EXECUTE MC Auth Status: ${respAuth.statusCode}`)
+
+                  respAuth.on('data', d => {
+                    console.log(`Data chunk available: ${d}`)
+                    const mcAuthJSONresp = JSON.parse(d);
+                    console.log('Auth Response: ', d);
+                    //console.log('access_token: ', mcAuthJSONresp.access_token);
+                    access_token = mcAuthJSONresp.access_token;
+
+                    const mcLogHttps = require('https')
+                    //zapData = zapData.replace(/"/g, "'");
+                    zapResponse = JSON.stringify(zapResponse);
+                    //console.log('Log zapData: ', zapData);
+
+                    let date_ob = new Date();
+                    let date = ("0" + date_ob.getDate()).slice(-2);
+                    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                    let year = date_ob.getFullYear();
+                    let hours = date_ob.getHours() + 2;
+                    let minutes = date_ob.getMinutes();
+                    let seconds = date_ob.getSeconds();
+
+                    let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+
+                    var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
+
+                    var logPayload = [
+                      {
+                        "keys": {
+                            "contactId": contactId,
+                            "date": fullDate
+                        },
+                        "values": {
+                          
+                          "status": statusCode,
+                          "payload": zapData,
+                          "response": zapResponse,
+                          "url": domain + webhookURL,
+                          "gender": salutation,
+                          "firstName": firstName,
+                          "email": email,
+                          "phone": phone,
+                          "country": country,
+                          "opt-in": optIn,
+                          "message": zapJSON.message,
+                          "programFamily": programFamily,
+                          "journeyName": journeyName
+                        }
+                      }
+                    ];
+
+                    console.log('LOG PAYLOAD: ', logPayload);
+                    const mcLogData = JSON.stringify(logPayload);
+
+                    const mcLogOptions = {
+                      hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
+                      port: 443,
+                      path: '/hub/v1/dataevents/key:whLog/rowset',
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: ''
                       }
                     }
-                  ];
 
-                  console.log('LOG PAYLOAD: ', logPayload);
-                  const mcLogData = JSON.stringify(logPayload);
+                    //console.log('access_token LOG CALL: ', access_token);
+                    mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
+                   //console.log('log options: ', mcLogOptions);
 
-                  const mcLogOptions = {
-                    hostname: 'mcwprj3n0rthz83-y9-d9kx0yrw8.rest.marketingcloudapis.com',
-                    port: 443,
-                    path: '/hub/v1/dataevents/key:whLog/rowset',
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: ''
-                    }
-                  }
+                    const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
+                      console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
 
-                  //console.log('access_token LOG CALL: ', access_token);
-                  mcLogOptions['headers']['Authorization'] = 'Bearer ' + access_token;
-                  //console.log('log options: ', mcLogOptions);
-
-                  const mcLogReq = mcLogHttps.request(mcLogOptions, respLog => {
-                    console.log(`EXECUTE MC LOG Status: ${respLog.statusCode}`)
-
-                    respLog.on('data', d => {
-                      //console.log(`Data chunk available: ${d}`)
-                      const mcLogJSONresp = JSON.parse(d);
-                      console.log('Log Response: ', respLog.statusCode);
-                      console.log('Log Message: ', respLog.content);
+                      respLog.on('data', d => {
+                        //console.log(`Data chunk available: ${d}`)
+                        const mcLogJSONresp = JSON.parse(d);
+                        console.log('Log Response: ', respLog.statusCode);
+                      })
                     })
-                  })
 
-                  mcLogReq.on('error', error => {
-                    console.error(error)
-                  })
+                    mcLogReq.on('error', error => {
+                      console.error(error)
+                    })
 
-                  mcLogReq.write(mcLogData.toString())
-                  mcLogReq.end()    
+                    mcLogReq.write(mcLogData.toString())
+                    mcLogReq.end()    
 
                   
+                  })
                 })
+
+                mcAuthReq.on('error', error => {
+                  console.error(error)
+                })
+
+                mcAuthReq.write(mcAuthData)
+                mcAuthReq.end()
+
               })
-
-              mcAuthReq.on('error', error => {
-                console.error(error)
-              })
-
-              mcAuthReq.write(mcAuthData)
-              mcAuthReq.end()
-
             })
-          })
 
-          zapReq.on('error', error => {
-            console.error(error)
-          })
+            zapReq.on('error', error => {
+              console.error(error)
+            })
 
-          zapReq.write(zapData)
-          zapReq.end()
+            zapReq.write(zapData)
+            zapReq.end()
 
           }
 
