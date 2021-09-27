@@ -163,7 +163,7 @@ exports.execute = function (req, res) {
 
           console.log ('edk: ' + edk);
 
-          if (edk != "undefined") {
+          if (edk !== "undefined") {
 
             const zapHttps = require('https')
             var statusCode;
@@ -376,7 +376,7 @@ exports.execute = function (req, res) {
 
                   let fullDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
                   var zapData = contentJSON;
-                  
+
                   var zapJSON = JSON.parse(zapData); //zapData.replace(/'/g, '"');
 
                   var logPayload = [
