@@ -7,8 +7,6 @@ const JWT = require(Path.join(__dirname, '..', 'lib', 'jwtDecoder.js'));
 var util = require('util');
 var http = require('https');
 
-console.log( 'LOAD ACTIVITY.JS' );
-
 exports.logExecuteData = [];
 
 function logData(req) {
@@ -364,7 +362,7 @@ exports.validate = function (req, res) {
             console.error(err);
             return res.status(401).end();
         }
-        console.log( 'DECODED ' + stringify(decoded) );
+        console.log( 'DECODED ' + Stringify(decoded) );
 
         if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
             
