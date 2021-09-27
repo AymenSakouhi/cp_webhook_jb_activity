@@ -163,7 +163,7 @@ exports.execute = function (req, res) {
 
           console.log ('edk: ' + edk);
 
-          if (edk !== "undefined") {
+          if (edk != undefined) {
 
             const zapHttps = require('https')
             var statusCode;
