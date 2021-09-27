@@ -57,7 +57,7 @@ define([
 
     function onRequestedInteraction (interaction) {    
         console.log('*** requestedInteraction ***');
-        eventDefinitionKey = interaction.triggers[0].metaData.eventDefinitionKey;
+        eventDefinitionKey = "undefinded"; //interaction.triggers[0].metaData.eventDefinitionKey;
         entryObject = interaction.triggers[0].configurationArguments.objectAPIName;
         entryTitle = interaction.triggers[0].metaData.title;
         journeyName = interaction.name;
