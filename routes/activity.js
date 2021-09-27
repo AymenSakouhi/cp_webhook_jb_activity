@@ -354,10 +354,10 @@ exports.publish = function (req, res) {
 exports.validate = function (req, res) {
     // Data from the req and put it in an array accessible to the main app.
     console.log( req.body );
-    console.log( 'TEST VALIDATE' );
+    console.log( 'VALIDATE' );
     JWT(req.body, process.env.jwtSecret, (err, decoded) => {
 
-
+      console.log( 'VALIDATE 2' );
         // verification error -> unauthorized request
         if (err) {
             console.error(err);
