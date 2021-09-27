@@ -285,12 +285,14 @@ define([
             { "contactId": "{{Contact.Key}}"},
             { "domain": domain},
             { "journeyName": journeyName },
-            
+
         ];
+
+        payload['arguments'].validate.inArguments = payload['arguments'].execute.inArguments;
         
         payload['metaData'].isConfigured = true;
 
-        console.log(JSON.stringify(payload));
+        console.log('Payload: ' + JSON.stringify(payload));
         connection.trigger('updateActivity', payload);
     }
 
