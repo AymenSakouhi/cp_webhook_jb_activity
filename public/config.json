@@ -24,7 +24,19 @@
             "format": "json",
             "useJwt": true,
             "timeout": 10000
+        },
+        "validate": {
+           "inArguments":[],
+           "outArguments": [],
+           "url": "https://shjbactivity.herokuapp.com/journeybuilder/validate",
+           "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": true,
+            "timeout": 10000
         }
+
     },
     "configurationArguments": {
       "save": {
