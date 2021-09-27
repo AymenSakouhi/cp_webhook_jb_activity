@@ -288,7 +288,52 @@ define([
 
         ];
 
-        payload['arguments'].validate.inArguments = payload['arguments'].execute.inArguments;
+        payload['arguments'].validate.inArguments = [
+            {
+                "tokens": authTokens 
+            },
+            { 
+                "url": url 
+            }, 
+            { 
+                "contentJSON": contentJSON
+            },
+            {
+                "emailAddress": "{{InteractionDefaults.Email}}"
+            },
+            {
+                "EntryObject": entryObject,
+            },
+            
+            {
+                "firstName": "{{Event."+ eventDefinitionKey + ".\"" + firstName + "\"}}",
+            },
+            {
+                "phone": "{{Event."+ eventDefinitionKey + ".\"" + phone + "\"}}",
+            },
+            { "lastName": "{{Event."+ eventDefinitionKey + ".\"" + lastName + "\"}}"},
+            { "opportunityId": "{{Event."+ eventDefinitionKey + ".\"" + opportunityId + "\"}}" },
+            { "stageName": "{{Event."+ eventDefinitionKey + ".\"" + stageName + "\"}}" },
+            { "programFamily": "{{Event."+ eventDefinitionKey + ".\"" + programFamily + "\"}}" },
+            { "cpAccountId": "{{Event."+ eventDefinitionKey + ".\"" + cpAccountId + "\"}}" },
+            { "salutation": "{{Event."+ eventDefinitionKey + ".\"" + salutation + "\"}}" },
+            { "productName": "{{Event."+ eventDefinitionKey + ".\"" + productName + "\"}}" },
+            { "productFamily": "{{Event."+ eventDefinitionKey + ".\"" + productFamily + "\"}}" },
+            { "productId": "{{Event."+ eventDefinitionKey + ".\"" + productId + "\"}}" },
+            { "degree": "{{Event."+ eventDefinitionKey + ".\"" + degree + "\"}}" },
+            { "createdDate": "{{Event."+ eventDefinitionKey + ".\"" + createdDate + "\"}}" },
+            { "optIn": "{{Event."+ eventDefinitionKey + ".\"" + optIn + "\"}}" },
+            { "country": "{{Event."+ eventDefinitionKey + ".\"" + country + "\"}}" },
+            { "voucher": "{{Event."+ eventDefinitionKey + ".\"" + voucher + "\"}}" },
+            { "workExperience": "{{Event."+ eventDefinitionKey + ".\"" + workExperience + "\"}}" },
+            { "budget": "{{Event."+ eventDefinitionKey + ".\"" + budget + "\"}}" },
+            { "rate": "{{Event."+ eventDefinitionKey + ".\"" + rate + "\"}}" },
+            { "studyAdvisor": "{{Event."+ eventDefinitionKey + ".\"" + studyAdvisor + "\"}}" },
+            { "contactId": "{{Contact.Key}}"},
+            { "domain": domain},
+            { "journeyName": journeyName },
+
+        ];
         
         payload['metaData'].isConfigured = true;
 
