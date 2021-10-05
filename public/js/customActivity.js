@@ -196,25 +196,25 @@ define([
         case 'DE':
             firstName = 'First Name';
             lastName = 'Last Name';
-            accountId = 'Opportunity:Account:Id';
+            accountId = 'Account ID';
             opportunityId = 'Opportunity ID';
             stageName = 'Stage';
             programFamily = 'Program Family';
-            cpAccountId = 'Opportunity:Account:CP_Account_ID__c';
+            cpAccountId = 'CP Account ID';
             salutation = 'Opportunity:Account:Salutation';
             productName = 'Course Of Study Lookup: Product Display Name';
             productFamily = 'Opportunity:CourseOfStudyLookup__r:Family';
             productId = 'Opportunity:CourseOfStudyLookup__r:Id';
             degree = 'Degree_old';
-            createdDate = 'Opportunity:CreatedDate';
-            optIn = 'Opportunity:Account:OptInEmail__c';
+            createdDate = 'Created Date';
+            optIn = 'Opt-In Email';
             country = 'Country';
-            voucher = 'Opportunity:VoucherID__c';
+            voucher = 'Voucher ID';
             workExperience = 'Opportunity:WorkExperience__c';
             budget = 'Opportunity:BudgetPerMonth__c';
             rate = 'Opportunity:RatePerInterval__c';
-            studyAdvisor = 'Opportunity:StudyAdvisor__c';
-            phone = 'Opportunity:Account:Phone';
+            studyAdvisor = 'Study Advisor: Full Name';
+            phone = 'Phone 1';
             break;
         default:
             firstName = 'Opportunity:Account:FirstName';
