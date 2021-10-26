@@ -48,6 +48,10 @@ define([
             var contentJSON = getcontentJSON();
         });
 
+        $('#entryObject').change(function() {
+            var selectEntryObject = getEntryObject();
+        });
+
     }
 
     function onRequestedDataSources(dataSources){
@@ -81,6 +85,7 @@ define([
         var url;
         var contentJSON;
         var domain;
+        var selectEntryObject;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -107,6 +112,9 @@ define([
                 if (key === 'domain') {
                     domain = val;
                 }
+                if (key === 'selectEntryObject') {
+                    selectEntryObject = val;
+                }
               
             });
         });
@@ -114,6 +122,7 @@ define([
         $('#url').val(url);
         $('#payload').val(contentJSON);
         $('#domain').val(domain);
+        $('#entryObject').val(selectEntryObject);
         connection.trigger('updateButton', {
             button: 'next',
             text: 'done',
@@ -138,6 +147,7 @@ define([
         var url = getURL();
         var contentJSON = getcontentJSON();
         var domain = getDomain();
+        var selectEntryObject = getEntryObject();
         var preObject;
         var firstName;
         var lastName;
@@ -165,7 +175,7 @@ define([
             entryObject = 'DE';
         }
 
-        switch(entryObject)
+        switch(selectEntryObject)
         {
         case 'Opportunity':
             firstName = 'Opportunity:Account:FirstName';
@@ -329,6 +339,11 @@ define([
     function getcontentJSON() {
         console.log('getcontentJSON: ' + $('#payload').val());
         return $('#payload').val().trim();
+    }
+
+    function getEntryObject() {
+        console.log('EntryObject: ' + $('#entryObject').val());
+        return $('#entryObject').val().trim();
     }
 
 
