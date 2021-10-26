@@ -38,6 +38,20 @@
     </header>
   </div>
             <div class="slds-form">
+              <div class="slds-form-element slds-has-error">
+                <label class="slds-form-element__label" for="select-01">
+                  <abbr class="slds-required" title="required">* </abbr>Select Entry Object</label>
+                <div class="slds-form-element__control">
+                  <div class="slds-select_container">
+                    <select aria-describedby="error-01" class="slds-select" id="entryObject" required="">
+                      <option value="DE">Report Data Extension</option>
+                      <option value="Opportunity">Opportunity</option>
+                      <option value="OpportunityArchive__c">Opportunity Archive</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="slds-form-element__help" id="error-01">Select an entry object.</div>
+              </div>
               <div class="slds-form-element slds-form-element_stacked">
                 <label class="slds-form-element__label" for="domain"><abbr class="slds-required" title="required">* </abbr>Webhook Domain</label>
                 <div class="slds-form-element__control">
