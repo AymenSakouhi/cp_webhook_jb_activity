@@ -244,7 +244,7 @@ define([
             phone = 'Phone 1';
             break;
         default:
-            firstName = 'Opportunity:Account:FirstName';
+            /*firstName = 'Opportunity:Account:FirstName';
             lastName = 'Opportunity:Account:LastName';
             accountId = 'Opportunity:Account:Id';
             opportunityId = 'Opportunity:Id';
@@ -264,7 +264,25 @@ define([
             budget = 'Opportunity:BudgetPerMonth__c';
             rate = 'Opportunity:RatePerInterval__c';
             studyAdvisor = 'Opportunity:StudyAdvisor__c';
-            phone = 'Opportunity:Account:Phone';
+            phone = 'Opportunity:Account:Phone';*/
+            firstName = 'OpportunityArchive__c:Account__r:FirstName';
+            lastName =  'OpportunityArchive__c:Account__r:LastName';
+            accountId = 'OpportunityArchive__c:Account__r:Id';
+            opportunityId =  'OpportunityArchive__c:Opportunity__r:Id';
+            stageName = 'OpportunityArchive__c:StageName__c';
+            programFamily = 'OpportunityArchive__c:Program_Family__c';
+            salutation = 'OpportunityArchive__c:Account__r:Salutation';
+            productName = 'OpportunityArchive__c:CourseOfStudy__r:Product_Display_Name__c';
+            productFamily = 'OpportunityArchive__c:CourseOfStudy__r:Family';
+            productId = 'OpportunityArchive__c:CourseOfStudy__r:Id';
+            degree = 'OpportunityArchive__c:degree__c';
+            optIn = 'OpportunityArchive__c:Account__r:OptInEmail__c';
+            country = 'OpportunityArchive__c:Account__r:ShippingCountry';
+            voucher = 'OpportunityArchive__c:VoucherID__c';
+            workExperience = 'OpportunityArchive__c:WorkExperience__c';
+            budget = 'OpportunityArchive__c:BudgetPerMonth__c';
+            rate = 'OpportunityArchive__c:RatePerInterval__c';
+            phone = 'OpportunityArchive__c:Account__r:Phone';
         }
         payload.name = name;
 
