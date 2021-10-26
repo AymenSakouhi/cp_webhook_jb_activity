@@ -316,6 +316,7 @@ define([
             { "journeyName": journeyName },
             { "edk": eventDefinitionKey },
             { "entryTitle": entryTitle },
+            { "selectEntryObject": selectEntryObject },
 
 
         ];
