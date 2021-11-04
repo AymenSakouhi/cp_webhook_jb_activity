@@ -1,0 +1,11 @@
+{
+"firstname": "@firstName",
+"lastname": "@lastName",
+"email": "@email",
+ "phone": "@phone",
+"country": "@country",
+"opt-in": "@optIn",
+"language": "en",
+"message": "Hi @firstName, study online with IU and benefit from scholarships up to 80%. Apply now: https://bit.ly/IU-apply  Your IU University Team. " , 
+"programFamily": "@programFamily"
+}
