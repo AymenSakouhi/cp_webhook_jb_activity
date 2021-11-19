@@ -143,7 +143,7 @@ define([
         var postcardURLValue = $('#postcard-url').val();
         var postcardTextValue = $('#postcard-text').val();
 
-        var name = 'Webhook Settings';
+        var name = 'DEV Webhook Settings';
         var url = getURL();
         var contentJSON = getcontentJSON();
         var domain = getDomain();
