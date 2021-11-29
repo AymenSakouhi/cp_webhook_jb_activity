@@ -170,6 +170,7 @@ define([
         var rate;
         var studyAdvisor;
         var phone;
+        var obwKey;
 
         if (entryTitle == 'Data Extension') {
             entryObject = 'DE';
@@ -199,6 +200,7 @@ define([
             rate = 'Opportunity:RatePerInterval__c';
             studyAdvisor = 'Opportunity:StudyAdvisor__c';
             phone = 'Opportunity:Account:Phone';
+            obwKey = 'Opportunity:ObwUserKey__c';
           break;
         case 'OpportunityArchive__c':
             firstName = 'OpportunityArchive__c:Account__r:FirstName';
@@ -219,6 +221,7 @@ define([
             budget = 'OpportunityArchive__c:BudgetPerMonth__c';
             rate = 'OpportunityArchive__c:RatePerInterval__c';
             phone = 'OpportunityArchive__c:Account__r:Phone';
+            obwKey = 'OpportunityArchive__c:ObwUserKey__c';
             break;
         case 'DE':
             firstName = 'First Name';
@@ -242,6 +245,7 @@ define([
             rate = 'Opportunity:RatePerInterval__c';
             studyAdvisor = 'Study Advisor: Full Name';
             phone = 'Phone 1';
+            obwKey = 'ObwUserKey';
             break;
         default:
             /*firstName = 'Opportunity:Account:FirstName';
@@ -283,6 +287,7 @@ define([
             budget = 'OpportunityArchive__c:BudgetPerMonth__c';
             rate = 'OpportunityArchive__c:RatePerInterval__c';
             phone = 'OpportunityArchive__c:Account__r:Phone';
+            obwKey = 'OpportunityArchive__c:ObwUserKey__c';
         }
         payload.name = name;
 
@@ -335,6 +340,7 @@ define([
             { "edk": eventDefinitionKey },
             { "entryTitle": entryTitle },
             { "selectEntryObject": selectEntryObject },
+            { "obwKey": "{{Event."+ eventDefinitionKey + ".\"" + obwKey + "\"}}" },
 
 
         ];
