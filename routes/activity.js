@@ -152,8 +152,8 @@ exports.execute = function (req, res) {
           contentJSON = contentJSON.replace(/@contactId/g, contactId);
           var domain = decoded.inArguments[26].domain;
           var journeyName = decoded.inArguments[27].journeyName;
-          var obwKey = decoded.inArguments[31].obwKey;
-          contentJSON = contentJSON.replace(/@obwKey/g, obwKey);
+          // var obwKey = decoded.inArguments[31].obwKey;
+          // contentJSON = contentJSON.replace(/@obwKey/g, obwKey);
           
 
 
